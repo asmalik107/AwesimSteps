@@ -10,6 +10,11 @@ import React, {
 
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 
+import { NativeModules } from 'react-native';
+const RNHealthKit = NativeModules.RNHealthKit;
+
+console.log(RNHealthKit, RNHealthKit.add(1,2, function(x){console.log(x);}));
+
 class StepPage extends Component {
     constructor() {
         super();

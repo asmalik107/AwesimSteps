@@ -25,6 +25,9 @@
 		1873CB95229E4C3E8AAC9955 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F048E67CD2544158BDA14DA /* EvilIcons.ttf */; };
 		21FCD5B7CBCA422B9CCFEAA1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38AF378AC867472B92D42263 /* MaterialIcons.ttf */; };
 		2CF1886F1CB2BBAF006248B3 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1886E1CB2BB6D006248B3 /* libART.a */; };
+		2CF188731CB2CD7A006248B3 /* ASHealthKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF188721CB2CD7A006248B3 /* ASHealthKit.swift */; };
+		2CF1887A1CB2D7D4006248B3 /* ASHealthKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF188791CB2D7D4006248B3 /* ASHealthKit.m */; };
+		2CF188811CB3225A006248B3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF188801CB3225A006248B3 /* HealthKit.framework */; };
 		2DD8DEC16CA34D96ACCF9F7F /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD99C65800314EBEBDD8F5C3 /* libRNVectorIcons.a */; };
 		486433D4CFCE484A86412B59 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEEDD2D2D09C4A7D95F4A50F /* Foundation.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -151,6 +154,11 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AwesimSteps/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2CF188691CB2BB6D006248B3 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
+		2CF188711CB2CD7A006248B3 /* AwesimSteps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AwesimSteps-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CF188721CB2CD7A006248B3 /* ASHealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASHealthKit.swift; sourceTree = "<group>"; };
+		2CF188791CB2D7D4006248B3 /* ASHealthKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASHealthKit.m; sourceTree = "<group>"; };
+		2CF1887B1CB2DA03006248B3 /* AwesimSteps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AwesimSteps.entitlements; path = AwesimSteps/AwesimSteps.entitlements; sourceTree = "<group>"; };
+		2CF188801CB3225A006248B3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		38AF378AC867472B92D42263 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7F048E67CD2544158BDA14DA /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -182,6 +190,7 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				2CF188811CB3225A006248B3 /* HealthKit.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
@@ -269,6 +278,7 @@
 		13B07FAE1A68108700A75B9A /* AwesimSteps */ = {
 			isa = PBXGroup;
 			children = (
+				2CF1887B1CB2DA03006248B3 /* AwesimSteps.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -276,6 +286,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				2CF188721CB2CD7A006248B3 /* ASHealthKit.swift */,
+				2CF188711CB2CD7A006248B3 /* AwesimSteps-Bridging-Header.h */,
+				2CF188791CB2D7D4006248B3 /* ASHealthKit.m */,
 			);
 			name = AwesimSteps;
 			sourceTree = "<group>";
@@ -357,6 +370,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				2CF188801CB3225A006248B3 /* HealthKit.framework */,
 				13B07FAE1A68108700A75B9A /* AwesimSteps */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AwesimStepsTests */,
@@ -421,12 +435,21 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 5ES874S4M4;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -643,7 +666,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF188731CB2CD7A006248B3 /* ASHealthKit.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				2CF1887A1CB2D7D4006248B3 /* ASHealthKit.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -720,6 +745,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AwesimSteps/AwesimSteps.entitlements;
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -731,6 +758,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AwesimSteps;
+				SWIFT_OBJC_BRIDGING_HEADER = "AwesimSteps-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -738,6 +767,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AwesimSteps/AwesimSteps.entitlements;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -748,6 +779,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AwesimSteps;
+				SWIFT_OBJC_BRIDGING_HEADER = "AwesimSteps-Bridging-Header.h";
 			};
 			name = Release;
 		};
