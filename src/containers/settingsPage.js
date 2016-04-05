@@ -9,8 +9,8 @@ import React, {
 
 
 class SettingsPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {

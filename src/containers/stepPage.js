@@ -4,24 +4,73 @@ import React, {
     Component,
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
 
 
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-
-import { NativeModules } from 'react-native';
+import moment from 'moment';
+import {NativeModules} from 'react-native';
 const RNHealthKit = NativeModules.RNHealthKit;
 
-console.log(RNHealthKit, RNHealthKit.add(1,2, function(x){console.log(x);}));
+var weekStart = moment().startOf('week');
+var todayStart = moment().startOf('day');
+var isSameDay = moment().isSame(todayStart, 'day');
+var diff = moment().diff(weekStart, 'days');
+
+
+console.log(RNHealthKit, weekStart, todayStart, isSameDay, diff);
+
+
+function cb(err, result) {
+
+    if (err) {
+        console.error(err)
+    } else {
+        console.log(result);
+    }
+}
+
+RNHealthKit.authorize(cb);
+
 
 class StepPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            fill: 'stuff'
-        }
+            today: 0,
+            fill: 'stuff',
+            goal: 10000
+        };
+
+        this._onPressButton = this._onPressButton.bind(this);
+    }
+
+
+    _onPressButton() {
+        console.log('clicked');
+    }
+
+    componentDidMount() {
+
+        RNHealthKit.getSteps(todayStart.toDate().getTime(), moment().toDate().getTime(), (err, result) => {
+
+            if (err) {
+                console.error(err)
+            } else {
+                console.log(result);
+                this.setState({today: result});
+            }
+        });
+
+
+    }
+
+
+    getFill() {
+        return this.state.today / this.state.goal * 100;
     }
 
     render() {
@@ -31,7 +80,7 @@ class StepPage extends Component {
                     <AnimatedCircularProgress
                         size={200}
                         width={10}
-                        fill={90}
+                        fill={this.getFill()}
                         tintColor="#00e0ff"
                         backgroundColor="#3d5875"
                         rotation={360}
@@ -39,30 +88,30 @@ class StepPage extends Component {
                         {
                             (fill) => (
                                 <Text style={styles.points}>
-                                    { this.state.fill }
+                                    { this.state.today } Steps
                                 </Text>
                             )
                         }
                     </AnimatedCircularProgress>
 
-
-                    <Text>
-                        Step
-                    </Text>
                 </View>
                 <View style={styles.weekly}>
                     <View style={styles.day}>
                         <Text>
                             M
                         </Text>
-                        <AnimatedCircularProgress
-                            size={30}
-                            width={5}
-                            fill={90}
-                            tintColor="#00e0ff"
-                            backgroundColor="#3d5875"
-                            rotation={360}
-                        />
+                        <TouchableOpacity onPress={this._onPressButton}>
+                            <View>
+                                <AnimatedCircularProgress
+                                    size={30}
+                                    width={5}
+                                    fill={90}
+                                    tintColor="#00e0ff"
+                                    backgroundColor="#3d5875"
+                                    rotation={360}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.day}>
                         <Text>
@@ -88,6 +137,7 @@ class StepPage extends Component {
 
 var styles = StyleSheet.create({
     container: {
+        top: 60,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
@@ -106,8 +156,8 @@ var styles = StyleSheet.create({
     points: {
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: 90,
-        left: 50,
+        top: 70,
+        left: 60,
         width: 90,
         fontSize: 30,
         textAlign: 'center',
@@ -115,11 +165,9 @@ var styles = StyleSheet.create({
         fontWeight: "100"
     },
     day: {
-        flex:1
+        flex: 1
     },
-    dayPoints: {
-
-    }
+    dayPoints: {}
 });
 
 export default StepPage;

@@ -1,0 +1,4 @@
+
+          module.exports = require("/Users/asimmalik/Documents/dev/am/native/AwesimSteps/node_modules/react-native/packager/react-packager/src/JSTransformer/worker.js");
+          require("/Users/asimmalik/Documents/dev/am/native/AwesimSteps/node_modules/react-native/packager/transformer.js");
+          

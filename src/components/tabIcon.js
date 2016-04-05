@@ -5,7 +5,7 @@ var Icon = require('react-native-vector-icons/Ionicons');
 
 class TabIcon extends Component {
     render() {
-        let color=this.props.selected ? 'red' :'white';
+        let color=this.props.selected ? '#00e0ff' :'white';
         return (
             <View style={styles.container}>
                 <Icon name={this.props.iconName} size={30} color={color} />

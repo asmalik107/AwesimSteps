@@ -12,13 +12,13 @@ import step from '../containers/stepPage';
 
 const styles = StyleSheet.create({
     navbar:{
-        backgroundColor: '#1BBC9B'
+        backgroundColor: '#3d5875'
     },
     navbarTitle : {
         color:'#dfe0e6'
     },
     tabbar:{
-        backgroundColor: '#1BBC9B',
+        backgroundColor: '#3d5875',
         height :60
     }
 });
@@ -35,7 +35,7 @@ const scenes = Actions.create(
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} >
                 <Scene key='Steps' title='Steps' component={step} />
             </Scene>
-            <Scene key='Settings' title='Settings' icon={TabIcon} component={settings}
+            <Scene key='settings' title='Settings' icon={TabIcon} component={settings}
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} iconName='ios-gear-outline'>
             </Scene>
         </Scene>
