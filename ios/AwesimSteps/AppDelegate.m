@@ -31,9 +31,9 @@
    * on the same Wi-Fi network.
    */
 
-  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 
-jsCodeLocation = [NSURL URLWithString:@"http://10.104.46.221:8081/index.ios.bundle?platform=ios&dev=true"];
+//jsCodeLocation = [NSURL URLWithString:@"http://172.16.0.92:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
@@ -49,7 +49,7 @@ jsCodeLocation = [NSURL URLWithString:@"http://10.104.46.221:8081/index.ios.bund
                                                       moduleName:@"AwesimSteps"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;

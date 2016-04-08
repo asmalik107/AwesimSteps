@@ -8,6 +8,8 @@ import TabIcon from '../components/tabIcon';
 import main from '../containers/mainPage';
 import settings from '../containers/settingsPage';
 import step from '../containers/stepPage';
+import terms from '../components/terms';
+import goal from '../components/goal';
 
 
 const styles = StyleSheet.create({
@@ -33,10 +35,14 @@ const scenes = Actions.create(
                tabBarStyle={styles.tabbar} type='replace'>
             <Scene key='stepTab' title='Steps' icon={TabIcon} iconName='stats-bars'
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} >
-                <Scene key='Steps' title='Steps' component={step} />
+                <Scene key='Steps' title='Steps' component={step}  hideNavBar={true}/>
             </Scene>
-            <Scene key='settings' title='Settings' icon={TabIcon} component={settings}
+            <Scene key='settingsTab' title='Settings' icon={TabIcon}
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} iconName='ios-gear-outline'>
+                <Scene key='settings' title='Settings' component={settings}/>
+                <Scene key='goal' title='Daily Goal' component={goal} />
+                <Scene key='terms' title='Terms And Conditions' component={terms} />
+                <Scene key='privacy' title='Privacy Policy' component={terms} />
             </Scene>
         </Scene>
     </Scene>

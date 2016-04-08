@@ -7,24 +7,25 @@ import React, {
     View
 } from 'react-native';
 
-import Settings from '../components/settingsList';
-import Models from '../utils/settings';
 
-class SettingsPage extends Component {
+
+class Terms extends Component {
     constructor(props) {
         super(props);
     }
 
+
     render() {
         return (
-            <Settings settings={Models.Settings}/>
-        );
+            <View style={styles.container}>
+                <Text> Stuff goes here</Text>
+            </View>
+        )
     }
-
 }
 
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
@@ -32,5 +33,4 @@ var styles = StyleSheet.create({
     }
 });
 
-
-export default SettingsPage;
+module.exports = Terms;

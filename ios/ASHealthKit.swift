@@ -97,12 +97,12 @@ class RNHealthKit: NSObject {
   @objc func getWeeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, callback:RCTResponseSenderBlock) -> Void {
     
     weeklySteps(startDate, endDate: endDate, anchorDate: anchorDate) { steps, error in
-      NSLog("steps");
+      NSLog("weeklysteps");
       
       //callback("dfdf");
       
       
-      callback([NSNull(), ""]);
+      callback([NSNull(), steps]);
     }
   }
   
@@ -115,28 +115,35 @@ class RNHealthKit: NSObject {
     // Our search predicate which will fetch data from now until a day ago
     // (Note, 1.day comes from an extension
     // You'll want to change that to your own NSDate
-    let predicate = HKQuery.predicateForSamplesWithStartDate(NSDate(), endDate: NSDate(), options: .None)
+    let predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
     
     // The actual HealthKit Query which will fetch all of the steps and sub them up for us.
-    let query = HKSampleQuery(sampleType: type!, predicate: predicate, limit: 100, sortDescriptors: nil) { query, results, error in
+    let query = HKSampleQuery(sampleType: type!, predicate: predicate, limit: 0, sortDescriptors: nil, resultsHandler: { query, results, error in
       var steps: Double = 0
       
-      if results?.count > 0
-      {
+      if results?.count > 0 {
+ /*     {
         for result in results as! [HKQuantitySample]
         {
           steps += result.quantity.doubleValueForUnit(HKUnit.countUnit())
         }
+      }*/
+      for s in results as! [HKQuantitySample]
+      {
+        // add values to dailyAVG
+        steps += s.quantity.doubleValueForUnit(HKUnit.countUnit())
+        print(steps)
+        print(s)
       }
-      
+      }
       completion(steps, error)
-    }
+    })
     
     healthKitStore.executeQuery(query)
   }
   
   
-  func weeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, completion: (Double, NSError?) -> ()) {
+  func weeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, completion: (Array<Double>, NSError?) -> ()) {
     let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
     //let startDate = NSDate().beginningOfDay().oneWeekAgo()
     let interval = NSDateComponents()
@@ -155,18 +162,22 @@ class RNHealthKit: NSObject {
       //let endDate = NSDate()
       //let startDate = NSDate().beginningOfDay().oneWeekAgo()
       if let myResults = results{
+        var stepsArray: [Double] = []
         myResults.enumerateStatisticsFromDate(startDate, toDate: endDate) {
           statistics, stop in
+          
           
           if let quantity = statistics.sumQuantity() {
             
             let date = statistics.startDate
             let steps = quantity.doubleValueForUnit(HKUnit.countUnit())
             print("\(date): steps = \(steps)")
-            completion(steps, error)
+            stepsArray.append(steps);
           }
+          
         }
-      }
+        completion(stepsArray, error)
+      } 
     }
     
     healthKitStore.executeQuery(query)
