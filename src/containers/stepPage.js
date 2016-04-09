@@ -83,7 +83,13 @@ class StepPage extends Component {
             }
         });
 
+        HealthKit.observeSteps();
 
+
+    }
+
+    componentWillUnmount() {
+        HealthKit.usubscribeListeners();
     }
 
 

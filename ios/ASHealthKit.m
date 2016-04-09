@@ -18,4 +18,7 @@
 
   RCT_EXTERN_METHOD(getWeeklySteps:(NSDate*)startDate endDate:(NSDate*) endDate anchorDate:(NSDate*) anchorDate callback:(RCTResponseSenderBlock) callback)
 
+  RCT_EXTERN_METHOD(observeSteps)
+
+
 @end

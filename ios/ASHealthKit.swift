@@ -13,6 +13,7 @@ import HealthKit
 @objc(RNHealthKit)
 class RNHealthKit: NSObject {
   
+  var bridge: RCTBridge!
   let healthKitStore:HKHealthStore = HKHealthStore()
   
   
@@ -31,7 +32,7 @@ class RNHealthKit: NSObject {
    }
    */
   
-  @objc func authorize(callback:RCTResponseSenderBlock) -> Void {
+  @objc func authorize(callback:RCTResponseSenderBlock) {
     let authorized = checkAuthorization();
     
     NSLog(authorized ? "Yes" : "No");
@@ -40,16 +41,16 @@ class RNHealthKit: NSObject {
   }
   
   
-  @objc func getSteps(startDate:NSDate, endDate:NSDate, callback:RCTResponseSenderBlock) -> Void {
+  @objc func getSteps(startDate:NSDate, endDate:NSDate, callback:RCTResponseSenderBlock) {
     recentSteps(startDate, endDate: endDate) { steps, error in
-      NSLog("steps");
+      NSLog("get steps");
       callback([NSNull(), steps]);
     }
   }
   
-  @objc func getWeeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, callback:RCTResponseSenderBlock) -> Void {
+  @objc func getWeeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, callback:RCTResponseSenderBlock){
     weeklySteps(startDate, endDate: endDate, anchorDate: anchorDate) { steps, error in
-      NSLog("weeklysteps");
+      NSLog("get weeklysteps");
       callback([NSNull(), steps]);
     }
   }
@@ -132,6 +133,45 @@ class RNHealthKit: NSObject {
   }
   
   
+  
+  @objc func observeSteps() {
+    let sampleType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+    
+    let query = HKObserverQuery(sampleType: sampleType!, predicate: nil) {
+      query, completionHandler, error in
+      
+      if error != nil {
+        
+        // Perform Proper Error Handling Here...
+        print("*** An error occured while setting up the stepCount observer. \(error!.localizedDescription) ***")
+        abort()
+      } else {
+        NSLog("Observed Steps")
+        // If you have subscribed for background updates you must call the completion handler here.
+        // completionHandler();
+        let startDate = self.beginningOfDay()
+        let endDate = NSDate()
+        
+        self.recentSteps(startDate, endDate: endDate) { steps, error in
+          NSLog("get Observed steps");
+         // callback([NSNull(), steps]);
+          //NSLog("Bridge: %@", self.bridge);
+          
+          self.bridge.eventDispatcher.sendAppEventWithName("StepChangedEvent", body: steps)
+        }
+      }
+      
+    }
+    
+    healthKitStore.executeQuery(query)
+  }
+  
+  
+  func beginningOfDay() -> NSDate {
+    let calendar = NSCalendar.currentCalendar()
+    let components = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
+    return calendar.dateFromComponents(components)!
+  }
   
   
   

@@ -1,10 +1,13 @@
 import {NativeModules} from 'react-native';
 const RNHealthKit = NativeModules.RNHealthKit;
+
+import { NativeAppEventEmitter } from 'react-native';
+
 import moment from 'moment';
 
 class HealthKit {
     constructor() {
-
+        this.subscription = null;
     }
 
     authorize(callback) {
@@ -17,6 +20,25 @@ class HealthKit {
 
     getWeeklySteps(startDate, anchorDate, callback){
         RNHealthKit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime(), anchorDate.toDate().getTime(), callback);
+    }
+
+    observeSteps() {
+         this.subscription = NativeAppEventEmitter.addListener(
+            'StepChangedEvent',
+            (steps) => console.log('StepChangedEvent', steps)
+        );
+
+
+        RNHealthKit.observeSteps();
+
+    }
+
+
+    usubscribeListeners() {
+        if(this.subscription){
+            this.subscription.remove();
+        }
+
     }
 
 }
