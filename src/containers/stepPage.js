@@ -9,22 +9,17 @@ import React, {
 } from 'react-native';
 
 
-import WeeklySummary from '../components/weeklySummary';
-
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
-import moment from 'moment';
-import {NativeModules} from 'react-native';
-const RNHealthKit = NativeModules.RNHealthKit;
-
-var weekStart = moment().startOf('week');
-var todayStart = moment().startOf('day');
-var isSameDay = moment().isSame(todayStart, 'day');
-var diff = moment().diff(weekStart, 'days');
+import HealthKit from '../services/healthKit'
+import WeeklySummary from '../components/weeklySummary';
+import TimeUtil from '../utils/timeUtil';
 
 
-console.log(RNHealthKit, weekStart, todayStart, isSameDay, diff);
+var weekStart = TimeUtil.getStartOfWeek();
+var todayStart = TimeUtil.getStartOfToday();
+var diff = TimeUtil.getDiffInDays(weekStart);
 
 
 function cb(err, result) {
@@ -36,7 +31,7 @@ function cb(err, result) {
     }
 }
 
-RNHealthKit.authorize(cb);
+HealthKit.authorize(cb);
 
 
 class StepPage extends Component {
@@ -56,8 +51,7 @@ class StepPage extends Component {
     _onPressButton() {
         console.log('clicked');
 
-        RNHealthKit.getSteps(todayStart.toDate().getTime(), moment().toDate().getTime(), (err, result) => {
-
+        HealthKit.getSteps(todayStart, (err, result) => {
             if (err) {
                 console.error(err)
             } else {
@@ -66,7 +60,7 @@ class StepPage extends Component {
             }
         });
 
-        RNHealthKit.getWeeklySteps(weekStart.toDate().getTime(), moment().toDate().getTime(), todayStart.toDate().getTime(), (err, result) => {
+        RNHealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
 
             if (err) {
                 console.error(err)
@@ -79,7 +73,7 @@ class StepPage extends Component {
 
     componentDidMount() {
 
-        RNHealthKit.getSteps(todayStart.toDate().getTime(), moment().toDate().getTime(), (err, result) => {
+        HealthKit.getSteps(todayStart, (err, result) => {
 
             if (err) {
                 console.error(err)
@@ -115,7 +109,7 @@ class StepPage extends Component {
                         {
                             (fill) => (
                                 <View style={styles.fill}>
-                                    <Icon name='android-walk' size={40} color='#7591af' />
+                                    <Icon name='android-walk' size={40} color='#7591af'/>
                                     <Text style={styles.points}>
                                         { this.state.today } Steps
                                     </Text>

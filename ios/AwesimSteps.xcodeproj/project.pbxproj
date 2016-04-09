@@ -154,7 +154,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AwesimSteps/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2CF188691CB2BB6D006248B3 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
-		2CF188711CB2CD7A006248B3 /* AwesimSteps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AwesimSteps-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CF188711CB2CD7A006248B3 /* ASBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASBridgingHeader.h; sourceTree = "<group>"; };
 		2CF188721CB2CD7A006248B3 /* ASHealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASHealthKit.swift; sourceTree = "<group>"; };
 		2CF188791CB2D7D4006248B3 /* ASHealthKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASHealthKit.m; sourceTree = "<group>"; };
 		2CF1887B1CB2DA03006248B3 /* AwesimSteps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AwesimSteps.entitlements; path = AwesimSteps/AwesimSteps.entitlements; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				2CF188721CB2CD7A006248B3 /* ASHealthKit.swift */,
-				2CF188711CB2CD7A006248B3 /* AwesimSteps-Bridging-Header.h */,
+				2CF188711CB2CD7A006248B3 /* ASBridgingHeader.h */,
 				2CF188791CB2D7D4006248B3 /* ASHealthKit.m */,
 			);
 			name = AwesimSteps;
@@ -759,7 +759,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AwesimSteps;
-				SWIFT_OBJC_BRIDGING_HEADER = "AwesimSteps-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = ASBridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -782,7 +782,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AwesimSteps;
-				SWIFT_OBJC_BRIDGING_HEADER = "AwesimSteps-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = ASBridgingHeader.h;
 			};
 			name = Release;
 		};
