@@ -22,10 +22,11 @@ class HealthKit {
         RNHealthKit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime(), anchorDate.toDate().getTime(), callback);
     }
 
-    observeSteps() {
+    observeSteps(callback) {
          this.subscription = NativeAppEventEmitter.addListener(
             'StepChangedEvent',
-            (steps) => console.log('StepChangedEvent', steps)
+             (steps) => callback(steps)
+            //(steps) => console.log('StepChangedEvent', steps)
         );
 
 

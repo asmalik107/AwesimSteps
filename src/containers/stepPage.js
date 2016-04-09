@@ -83,7 +83,11 @@ class StepPage extends Component {
             }
         });
 
-        HealthKit.observeSteps();
+        HealthKit.observeSteps((result) => {
+                console.log(result);
+                this.setState({today: result});
+
+        });
 
 
     }
