@@ -11,7 +11,6 @@ import step from '../containers/stepPage';
 import terms from '../components/terms';
 import goal from '../components/goal';
 
-
 const styles = StyleSheet.create({
     navbar:{
         backgroundColor: '#3d5875'
