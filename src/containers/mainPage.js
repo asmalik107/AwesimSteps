@@ -15,7 +15,7 @@ class main extends Component {
     }
 
     componentDidMount() {
-       //Actions.tabbar();
+       Actions.tabbar();
     }
 
     render() {
