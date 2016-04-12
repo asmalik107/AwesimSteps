@@ -6,6 +6,7 @@ import React, {
 } from 'react-native';
 
 import Root from './src/root.js';
+//import Root from './src/containers/stepPage';
 
 AppRegistry.registerComponent('AwesimSteps', () => Root);
 

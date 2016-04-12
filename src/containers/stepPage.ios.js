@@ -25,9 +25,9 @@ var diff = TimeUtil.getDiffInDays(weekStart);
 function cb(err, result) {
 
     if (err) {
-        console.error(err)
+       // console.error(err)
     } else {
-        console.log(result);
+        //console.log(result);
     }
 }
 
@@ -49,13 +49,13 @@ class StepPage extends Component {
 
 
     _onPressButton() {
-        console.log('clicked');
+
 
         HealthKit.getSteps(todayStart, (err, result) => {
             if (err) {
-                console.error(err)
+                //console.error(err)
             } else {
-                console.log(result);
+                //console.log(result);
                 this.setState({today: result});
             }
         });
@@ -63,9 +63,9 @@ class StepPage extends Component {
         RNHealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
 
             if (err) {
-                console.error(err)
+               // console.error(err)
             } else {
-                console.log(result);
+                //console.log(result);
                 //this.setState({today: result});
             }
         });
@@ -76,15 +76,15 @@ class StepPage extends Component {
         HealthKit.getSteps(todayStart, (err, result) => {
 
             if (err) {
-                console.error(err)
+                //console.error(err)
             } else {
-                console.log(result);
+                //console.log(result);
                 this.setState({today: result});
             }
         });
 
         HealthKit.observeSteps((result) => {
-                console.log(result);
+                //console.log(result);
                 this.setState({today: result});
 
         });
@@ -99,7 +99,7 @@ class StepPage extends Component {
 
     getFill() {
 
-        console.log(this.state.today / this.state.goal * 100)
+        //console.log(this.state.today / this.state.goal * 100)
         return this.state.today / this.state.goal * 100;
     }
 

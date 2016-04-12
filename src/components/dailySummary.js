@@ -48,7 +48,7 @@ class DailySummary extends Component {
     }
 
     _onPressButton() {
-        console.log('Click');
+       // console.log('Click');
     }
 }
 

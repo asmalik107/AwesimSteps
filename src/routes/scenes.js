@@ -27,10 +27,32 @@ const styles = StyleSheet.create({
 
 
 
+/*const scenes = Actions.create(
+    <Scene key='root' hideNavBar={true} >
+        <Scene key='app' title='App' component={main} initial={false} />
+        <Scene key='tabbar' tabs={true} default='stepTab' initial={true}
+               tabBarStyle={styles.tabbar} type='replace'>
+            <Scene key='stepTab' title='Steps' icon={TabIcon} iconName='stats-bars'
+                   navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} >
+                <Scene key='goal' title='Daily Goal' component={goal} />
+            </Scene>
+            <Scene key='settingsTab' title='Settings' icon={TabIcon}
+                   navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} iconName='ios-gear-outline'>
+                <Scene key='settings' title='Settings' component={settings}/>
+                <Scene key='goal' title='Daily Goal' component={goal} />
+                <Scene key='terms' title='Terms And Conditions' component={terms} />
+                <Scene key='privacy' title='Privacy Policy' component={terms} />
+            </Scene>
+        </Scene>
+    </Scene>
+);*/
+
+
+
 const scenes = Actions.create(
     <Scene key='root' hideNavBar={true} >
-        <Scene key='app' title='App' component={main} initial={true} />
-        <Scene key='tabbar' tabs={true} default='stepTab' initial={false}
+        <Scene key='app' title='App' component={main} initial={false} />
+        <Scene key='tabbar' tabs={true} default='stepTab' initial={true}
                tabBarStyle={styles.tabbar} type='replace'>
             <Scene key='stepTab' title='Steps' icon={TabIcon} iconName='stats-bars'
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} >

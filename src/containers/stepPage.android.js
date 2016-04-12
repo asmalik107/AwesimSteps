@@ -40,7 +40,6 @@ class StepPage extends Component {
 
 
     _onPressButton() {
-        console.log('clicked');
 
   /*      HealthKit.getSteps(todayStart, (err, result) => {
             if (err) {
@@ -90,7 +89,7 @@ class StepPage extends Component {
 
     getFill() {
 
-        console.log(this.state.today / this.state.goal * 100)
+       // console.log(this.state.today / this.state.goal * 100)
         return this.state.today / this.state.goal * 100;
     }
 
