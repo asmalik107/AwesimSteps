@@ -12,7 +12,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule {
 
     private static final String REACT_MODULE = "RNGoogleFit";
     private ReactContext mReactContext;
-    private AuthorizationManager authorizationManager;
+    private GoogleFitManager googleFitManager;
     private Activity activity;
 
     public GoogleFitModule(ReactApplicationContext reactContext, Activity activity) {
@@ -30,16 +30,16 @@ public class GoogleFitModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void authorize() {
-        if(authorizationManager == null) {
-            authorizationManager = new AuthorizationManager(mReactContext, activity);
+        if(googleFitManager == null) {
+            googleFitManager = new GoogleFitManager(mReactContext, activity);
         }
 
-        authorizationManager.authorize();
+        googleFitManager.authorize();
     }
 
     @ReactMethod
     public void getWeeklySteps(double startDate, double endDate) {
-        authorizationManager.displayLastWeeksData((long)startDate, (long)endDate);
+        googleFitManager.getStepHistory().displayLastWeeksData((long)startDate, (long)endDate);
 
     }
 

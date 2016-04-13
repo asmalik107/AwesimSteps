@@ -56,10 +56,11 @@ class DailySummary extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'space-around'
+        //top:30,
+       // flexDirection: 'column',
+       alignItems: 'center'
+        //alignSelf: 'center',
+        //justifyContent: 'space-around'
         //margin: 5
     },
     fill: {

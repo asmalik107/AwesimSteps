@@ -145,21 +145,25 @@ const styles = StyleSheet.create({
     container: {
         //top: 60,
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+        //justifyContent: 'center',
         backgroundColor: '#ffffff'
     },
     today: {
-        flex: .75,
+        flex: .80,
         alignItems: 'center'
-        //justifyContent: 'center'
+        //justifyContent: 'flex-start'
     },
     weekly: {
-        flex: .25,
-        //alignItems: 'center',
+        flex: .20,
+        //top:30,
+
+        //alignItems: 'flex-start',
+        alignItems: 'flex-end',
         //justifyContent: 'center',
         flexDirection: 'row',
-        top:15
+       marginBottom:30,
+
     },
     fill: {
         backgroundColor: 'transparent',
