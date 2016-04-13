@@ -8,44 +8,60 @@ import TabIcon from '../components/tabIcon';
 import main from '../containers/mainPage';
 import settings from '../containers/settingsPage';
 import step from '../containers/stepPage';
-import terms from '../components/terms';
+import policy from '../components/policy';
 import goal from '../components/goal';
 
 const styles = StyleSheet.create({
-    navbar:{
-        backgroundColor: '#3d5875'
+    navbar: {
+        backgroundColor: '#e74c3c',
+        borderBottomColor: 'transparent',
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        },
+        elevation: 5
     },
-    navbarTitle : {
-        color:'#dfe0e6'
+    navbarTitle: {
+        color: '#ffffff'
     },
-    tabbar:{
-        backgroundColor: '#3d5875',
-        height :60
+    tabbar: {
+        backgroundColor: '#e74c3c',
+        borderTopColor: 'transparent',
+        height: 60,
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        },
+        elevation: 5
     }
 });
 
 
 const scenes = Actions.create(
-    <Scene key='root' hideNavBar={true} >
-        <Scene key='app' title='App' component={main} initial={true} />
+    <Scene key='root' hideNavBar={true}>
+        <Scene key='app' title='App' component={main} initial={true}/>
         <Scene key='tabbar' tabs={true} default='stepTab' initial={false}
                tabBarStyle={styles.tabbar} type='replace'>
             <Scene key='stepTab' title='Steps' icon={TabIcon} iconName='stats-bars'
-                   navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} >
-                <Scene key='Steps' title='Steps' component={step}  hideNavBar={true}/>
+                   navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle}>
+                <Scene key='Steps' title='Pedometer' component={step}/>
             </Scene>
             <Scene key='settingsTab' title='Settings' icon={TabIcon}
                    navigationBarStyle={styles.navbar} titleStyle={styles.navbarTitle} iconName='ios-gear-outline'>
                 <Scene key='settings' title='Settings' component={settings}/>
-                <Scene key='goal' title='Daily Goal' component={goal} />
-                <Scene key='terms' title='Terms And Conditions' component={terms} />
-                <Scene key='privacy' title='Privacy Policy' component={terms} />
+                <Scene key='goal' title='Daily Goal' component={goal}/>
+                <Scene key='terms' title='Terms And Conditions' component={policy}/>
+                <Scene key='privacy' title='Privacy Policy' component={policy}/>
             </Scene>
         </Scene>
     </Scene>
 );
-
-
 
 
 export default scenes;

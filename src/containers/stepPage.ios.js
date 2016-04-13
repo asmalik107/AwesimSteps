@@ -17,9 +17,7 @@ import WeeklySummary from '../components/weeklySummary';
 import TimeUtil from '../utils/timeUtil';
 
 
-var weekStart = TimeUtil.getStartOfWeek();
-var todayStart = TimeUtil.getStartOfToday();
-var diff = TimeUtil.getDiffInDays(weekStart);
+
 
 
 function cb(err, result) {
@@ -51,14 +49,17 @@ class StepPage extends Component {
     _onPressButton() {
 
 
-        HealthKit.getSteps(todayStart, (err, result) => {
+/*        HealthKit.getSteps(todayStart, (err, result) => {
             if (err) {
                 //console.error(err)
             } else {
                 //console.log(result);
                 this.setState({today: result});
             }
-        });
+        });*/
+        var weekStart = TimeUtil.getStartOfWeek();
+        var todayStart = TimeUtil.getStartOfToday();
+        var diff = TimeUtil.getDiffInDays(weekStart);
 
         RNHealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
 
@@ -72,7 +73,7 @@ class StepPage extends Component {
     }
 
     componentDidMount() {
-
+/*
         HealthKit.getSteps(todayStart, (err, result) => {
 
             if (err) {
@@ -81,7 +82,7 @@ class StepPage extends Component {
                 //console.log(result);
                 this.setState({today: result});
             }
-        });
+        });*/
 
         HealthKit.observeSteps((result) => {
                 //console.log(result);
@@ -101,25 +102,27 @@ class StepPage extends Component {
 
         //console.log(this.state.today / this.state.goal * 100)
         return this.state.today / this.state.goal * 100;
+
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <WeeklySummary weeklyStyle={styles.weekly}/>
                 <View style={styles.today}>
                     <Text> Today </Text>
                     <AnimatedCircularProgress
-                        size={250}
-                        width={10}
+                        size={270}
+                        width={20}
                         fill={this.getFill()}
-                        tintColor="#00e0ff"
-                        backgroundColor="#3d5875"
+                        tintColor="#fe751f"
+                        backgroundColor="#d2d2d2"
                         rotation={360}
                     >
                         {
                             (fill) => (
                                 <View style={styles.fill}>
-                                    <Icon name='android-walk' size={40} color='#7591af'/>
+                                    <Icon name='android-walk' size={40} color='#e74c3c'/>
                                     <Text style={styles.points}>
                                         { this.state.today } Steps
                                     </Text>
@@ -130,7 +133,7 @@ class StepPage extends Component {
 
                 </View>
 
-                <WeeklySummary weeklyStyle={styles.weekly}/>
+
             </View>
         );
     }
@@ -140,33 +143,37 @@ class StepPage extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        top: 60,
+        //top: 60,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#ffffff'
     },
     today: {
-        flex: .5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        flex: .75,
+        alignItems: 'center'
+        //justifyContent: 'center'
     },
     weekly: {
-        flex: .5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
+        flex: .25,
+        //alignItems: 'center',
+        //justifyContent: 'center',
+        flexDirection: 'row',
+        top:15
     },
     fill: {
         backgroundColor: 'transparent',
         position: 'absolute',
         top: 90,
-        left: 70
+        left: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     points: {
         backgroundColor: 'transparent',
         fontSize: 30,
         textAlign: 'center',
-        color: '#7591af',
+        color: '#e74c3c',
         fontWeight: '100'
     },
     day: {

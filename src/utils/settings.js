@@ -18,13 +18,15 @@ const Settings = {
             key: '2',
             title: 'Terms and Conditions',
             hasNavArrow: true,
-            action: 'terms'
+            action: 'terms',
+            params: {source: 'terms'}
         },
         {
             key: '3',
             title: 'Privacy Policy',
             hasNavArrow: true,
-            action: 'privacy'
+            action: 'privacy',
+            params: {source: 'privacy'}
         }
     ]
 };

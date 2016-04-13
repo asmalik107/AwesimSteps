@@ -11,9 +11,6 @@ import React, {
 
 import {Actions} from 'react-native-router-flux';
 
-
-import DailySummary from './dailySummary';
-
 class SettingsList extends Component {
     constructor(props) {
         super(props);
@@ -75,7 +72,7 @@ class SettingsList extends Component {
 
     onPressRow(rowData, sectionID) {
         if(rowData.action) {
-            Actions[rowData.action]();
+            Actions[rowData.action](rowData.params);
         }
     }
 }

@@ -27,8 +27,8 @@ class DailySummary extends Component {
                             size={40}
                             width={5}
                             fill={this.props.fill}
-                            tintColor="#00e0ff"
-                            backgroundColor="gray"
+                            tintColor="#fe751f"
+                            backgroundColor="#d2d2d2"
                             rotation={360}
                         >
                             {
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         alignSelf: 'center',
-        margin: 5
+        justifyContent: 'space-around'
+        //margin: 5
     },
     fill: {
         position: 'absolute',

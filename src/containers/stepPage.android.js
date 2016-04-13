@@ -15,11 +15,10 @@ var Icon = require('react-native-vector-icons/Ionicons');
 //import HealthKit from '../services/healthKit'
 import WeeklySummary from '../components/weeklySummary';
 import TimeUtil from '../utils/timeUtil';
+import GFit from '../services/googleFit';
 
 
-var weekStart = TimeUtil.getStartOfWeek();
-var todayStart = TimeUtil.getStartOfToday();
-var diff = TimeUtil.getDiffInDays(weekStart);
+
 
 
 
@@ -40,50 +39,18 @@ class StepPage extends Component {
 
 
     _onPressButton() {
-
-  /*      HealthKit.getSteps(todayStart, (err, result) => {
-            if (err) {
-                console.error(err)
-            } else {
-                console.log(result);
-                this.setState({today: result});
-            }
-        });
-
-        RNHealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
-
-            if (err) {
-                console.error(err)
-            } else {
-                console.log(result);
-                //this.setState({today: result});
-            }
-        });*/
+        var weekStart = TimeUtil.getStartOfWeek();
+        var todayStart = TimeUtil.getStartOfToday();
+        var diff = TimeUtil.getDiffInDays(weekStart);
+        GFit.getWeeklySteps(weekStart);
     }
 
     componentDidMount() {
-
- /*       HealthKit.getSteps(todayStart, (err, result) => {
-
-            if (err) {
-                console.error(err)
-            } else {
-                console.log(result);
-                this.setState({today: result});
-            }
-        });
-
-        HealthKit.observeSteps((result) => {
-                console.log(result);
-                this.setState({today: result});
-
-        });*/
-
-
+        GFit.authorize();
     }
 
     componentWillUnmount() {
-        //HealthKit.usubscribeListeners();
+        //GFit.usubscribeListeners();
     }
 
 
@@ -96,20 +63,21 @@ class StepPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <WeeklySummary weeklyStyle={styles.weekly}/>
                 <View style={styles.today}>
                     <Text> Today </Text>
                     <AnimatedCircularProgress
-                        size={250}
-                        width={10}
+                        size={270}
+                        width={20}
                         fill={this.getFill()}
-                        tintColor="#00e0ff"
-                        backgroundColor="#3d5875"
+                        tintColor="#fe751f"
+                        backgroundColor="#d2d2d2"
                         rotation={360}
                     >
                         {
                             (fill) => (
                                 <View style={styles.fill}>
-                                    <Icon name='android-walk' size={40} color='#7591af'/>
+                                    <Icon name='android-walk' size={40} color='#e74c3c'/>
                                     <Text style={styles.points}>
                                         { this.state.today } Steps
                                     </Text>
@@ -119,8 +87,6 @@ class StepPage extends Component {
                     </AnimatedCircularProgress>
 
                 </View>
-
-                <WeeklySummary weeklyStyle={styles.weekly}/>
             </View>
         );
     }
@@ -130,33 +96,37 @@ class StepPage extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        top: 60,
+        //top: 60,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#ffffff'
     },
     today: {
-        flex: .5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        flex: .75,
+        alignItems: 'center'
+        //justifyContent: 'center'
     },
     weekly: {
-        flex: .5,
+        flex: .25,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        top:20
     },
     fill: {
         backgroundColor: 'transparent',
         position: 'absolute',
         top: 90,
-        left: 70
+        left: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     points: {
         backgroundColor: 'transparent',
         fontSize: 30,
         textAlign: 'center',
-        color: '#7591af',
+        color: '#e74c3c',
         fontWeight: '100'
     },
     day: {
