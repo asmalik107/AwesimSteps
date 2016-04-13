@@ -2,6 +2,7 @@
 
 import React, {
     Component,
+    StyleSheet,
     Text,
     View
 } from 'react-native';
@@ -20,7 +21,7 @@ class main extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <Text>
                     App Startup
                 </Text>
@@ -28,5 +29,14 @@ class main extends Component {
         );
     }
 }
+
+var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#e74c3c'
+    }
+});
 
 export default main;

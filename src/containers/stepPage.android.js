@@ -18,12 +18,6 @@ import TimeUtil from '../utils/timeUtil';
 import GFit from '../services/googleFit';
 
 
-
-
-
-
-
-
 class StepPage extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +25,19 @@ class StepPage extends Component {
         this.state = {
             today: 0,
             fill: 'stuff',
-            goal: 10000
+            goal: 10000,
+            week: {
+                today: 3,
+                days: [
+                    {day: 'S', date: null, steps: 0, fill:100},
+                    {day: 'M', date: null, steps: 0, fill:10},
+                    {day: 'T', date: null, steps: 0, fill:20},
+                    {day: 'W', date: null, steps: 0, fill:30},
+                    {day: 'T', date: null, steps: 0, fill:0},
+                    {day: 'F', date: null, steps: 0, fill:0},
+                    {day: 'S', date: null, steps: 0, fill:0}
+                ]
+            }
         };
 
         this._onPressButton = this._onPressButton.bind(this);
@@ -69,7 +75,7 @@ class StepPage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <WeeklySummary weeklyStyle={styles.weekly}/>
+                <WeeklySummary week={this.state.week} weeklyStyle={styles.weekly}/>
                 <View style={styles.today}>
                     <Text> Today </Text>
                     <AnimatedCircularProgress

@@ -16,15 +16,17 @@ class WeeklySummary extends Component{
 
 
     render() {
+        var dailySummary = this.props.week.days.map(function(day, index) {
+            return (
+                <DailySummary {...day} key={index}/>
+            );
+        });
+
+
         return (
             <View style={this.props.weeklyStyle}>
-                <DailySummary day="S" fill={100}/>
-                <DailySummary day="M" fill={60}/>
-                <DailySummary day="T" fill={10}/>
-                <DailySummary day="W" fill={0}/>
-                <DailySummary day="T" fill={0}/>
-                <DailySummary day="F" fill={0}/>
-                <DailySummary day="S" fill={120}/>
+
+                {dailySummary}
             </View>
         )
     }
