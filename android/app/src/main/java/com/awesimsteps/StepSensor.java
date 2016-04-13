@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class StepSensor implements SensorEventListener {
 
@@ -42,13 +46,19 @@ public class StepSensor implements SensorEventListener {
         Sensor mySensor = sensorEvent.sensor;
 
 
+
         if (mySensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            WritableMap map = Arguments.createMap();
 
             long curTime = System.currentTimeMillis();
             //i++;
             if ((curTime - lastUpdate) > delay) {
                 final Object o = sensorEvent.values[0];
                 Log.i("History", "Data point:" + sensorEvent.values[0]);
+
+                map.putDouble("steps", sensorEvent.values[0]);
+                sendEvent(this.mReactContext, "StepSensorChangedEvent", map);
+
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -57,15 +67,20 @@ public class StepSensor implements SensorEventListener {
                 });
                 lastUpdate = curTime;
             }
-
-
-
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    private void sendEvent(ReactContext reactContext,
+                           String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 
 }

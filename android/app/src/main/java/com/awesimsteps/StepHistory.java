@@ -57,7 +57,7 @@ public class StepHistory {
             for (Bucket bucket : dataReadResult.getBuckets()) {
                 List<DataSet> dataSets = bucket.getDataSets();
                 for (DataSet dataSet : dataSets) {
-                    showDataSet(dataSet);
+                    processDataSet(dataSet);
                 }
             }
         }
@@ -65,12 +65,12 @@ public class StepHistory {
         else if (dataReadResult.getDataSets().size() > 0) {
             Log.i(TAG, "Number of returned DataSets: " + dataReadResult.getDataSets().size());
             for (DataSet dataSet : dataReadResult.getDataSets()) {
-                showDataSet(dataSet);
+                processDataSet(dataSet);
             }
         }
     }
 
-    private void showDataSet(DataSet dataSet) {
+    private void processDataSet(DataSet dataSet) {
         Log.i(TAG, "Data returned for Data type: " + dataSet.getDataType().getName());
         DateFormat dateFormat = DateFormat.getDateInstance();
         DateFormat timeFormat = DateFormat.getTimeInstance();

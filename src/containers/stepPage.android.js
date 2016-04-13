@@ -47,6 +47,12 @@ class StepPage extends Component {
 
     componentDidMount() {
         GFit.authorize();
+
+        GFit.observeSteps((result) => {
+            //console.log(result);
+            this.setState({today: result});
+
+        });
     }
 
     componentWillUnmount() {
