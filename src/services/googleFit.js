@@ -24,7 +24,15 @@ class GoogleFit{
 
     observeSteps(callback) {
         this.subscriptions.push(DeviceEventEmitter.addListener(
-            'StepSensorChangedEvent',
+            'StepChangedEvent',
+            (steps) => callback(steps)
+            //(steps) => console.log('StepChangedEvent', steps)
+        ));
+    }
+
+    observeHistory(callback) {
+        this.subscriptions.push(DeviceEventEmitter.addListener(
+            'StepHistoryChangedEvent',
             (steps) => callback(steps)
             //(steps) => console.log('StepChangedEvent', steps)
         ));
@@ -36,6 +44,7 @@ class GoogleFit{
                 subscription.remove();
             });*/
             DeviceEventEmitter.removeAllListeners();
+            this.subscriptions = [];
         }
 
     }

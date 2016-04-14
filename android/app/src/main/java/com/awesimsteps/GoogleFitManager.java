@@ -52,9 +52,8 @@ public class GoogleFitManager implements
         this.stepCounter = new StepCounter(mReactContext, this, activity);
         this.stepHistory = new StepHistory(mReactContext, this);
 
-        this.stepSensor = new StepSensor(mReactContext, activity);
+//        this.stepSensor = new StepSensor(mReactContext, activity);
 
-        this.stepSensor.start(3);
 
     }
 

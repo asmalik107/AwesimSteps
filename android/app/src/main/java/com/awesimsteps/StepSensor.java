@@ -2,9 +2,12 @@ package com.awesimsteps;
 
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +16,8 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+
+import java.util.List;
 
 public class StepSensor implements SensorEventListener {
 
@@ -23,15 +28,35 @@ public class StepSensor implements SensorEventListener {
     private long lastUpdate = 0;
     private int delay;
 
+    private static final String TAG = "StepCounter";
+
     public StepSensor(ReactContext reactContext, Activity activity) {
         this.mReactContext = reactContext;
         this.activity = activity;
 
+        boolean stepCounter = hasStepCounter();
+        Log.i(TAG, "hasStepCounter: " + stepCounter);
 
-        mSensorManager = (android.hardware.SensorManager)reactContext.getSystemService(reactContext.SENSOR_SERVICE);
+        if(stepCounter) {
+            mSensorManager = (SensorManager) reactContext.getSystemService(reactContext.SENSOR_SERVICE);
+        }
+    }
+
+    public boolean hasStepCounter() {
+
+        PackageManager pm = activity.getPackageManager();
+
+        int currentApiVersion = Build.VERSION.SDK_INT;
+        // Check that the device supports the step counter and detector sensors
+        return currentApiVersion >= 19
+                && pm.hasSystemFeature (PackageManager.FEATURE_SENSOR_STEP_COUNTER)
+                && pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_DETECTOR);
+
     }
 
     public int start(int delay) {
+        List<Sensor> l = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+
         this.delay = delay;
         if ((mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)) != null) {
             mSensorManager.registerListener(this, mStepCounter, android.hardware.SensorManager.SENSOR_DELAY_FASTEST);
@@ -44,6 +69,8 @@ public class StepSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor mySensor = sensorEvent.sensor;
+
+        Log.i(TAG, "onSensorChanged");
 
 
 

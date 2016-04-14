@@ -1,10 +1,14 @@
 package com.awesimsteps;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -39,16 +43,20 @@ public class StepCounter implements OnDataPointListener {
     public void findFitnessDataSources() {
 
         DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
-                .setDataTypes(DataType.TYPE_STEP_COUNT_DELTA)
-                .setDataSourceTypes(DataSource.TYPE_RAW)
+                .setDataTypes(DataType.TYPE_STEP_COUNT_DELTA, DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                .setDataSourceTypes( DataSource.TYPE_DERIVED)
                 .build();
 
         ResultCallback<DataSourcesResult> dataSourcesResultCallback = new ResultCallback<DataSourcesResult>() {
             @Override
             public void onResult(DataSourcesResult dataSourcesResult) {
                 for (DataSource dataSource : dataSourcesResult.getDataSources()) {
-                    if (DataType.TYPE_STEP_COUNT_DELTA.equals(dataSource.getDataType())) {
-                        registerFitnessDataListener(dataSource, DataType.TYPE_STEP_COUNT_DELTA);
+                    DataType type = dataSource.getDataType();
+
+                    if (DataType.TYPE_STEP_COUNT_DELTA.equals(type)
+                            || DataType.TYPE_STEP_COUNT_CUMULATIVE.equals(type)) {
+                        Log.i(TAG, "Register Fitness Listener: " + type);
+                        registerFitnessDataListener(dataSource, type);//DataType.TYPE_STEP_COUNT_DELTA);
                     }
                 }
             }
@@ -80,18 +88,37 @@ public class StepCounter implements OnDataPointListener {
 
     @Override
     public void onDataPoint(DataPoint dataPoint) {
-        for (final Field field : dataPoint.getDataType().getFields()) {
+        DataType type = dataPoint.getDataType();
+        Log.i(TAG, "Detected DataPoint type: " + type);
+
+        for (final Field field : type.getFields()) {
             final Value value = dataPoint.getValue(field);
             Log.i(TAG, "Detected DataPoint field: " + field.getName());
             Log.i(TAG, "Detected DataPoint value: " + value);
 
 
-            activity.runOnUiThread(new Runnable() {
+       /*     activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(mReactContext.getApplicationContext(), "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
+
+            if(type.equals(DataType.TYPE_STEP_COUNT_CUMULATIVE)) {
+                WritableMap map = Arguments.createMap();
+                map.putDouble("steps", value.asInt());
+                sendEvent(this.mReactContext, "StepChangedEvent", map);
+            }
+
         }
+    }
+
+
+    private void sendEvent(ReactContext reactContext,
+                           String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 }
