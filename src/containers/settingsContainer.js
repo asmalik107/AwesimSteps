@@ -20,7 +20,6 @@ class SettingsPage extends Component {
             <Settings settings={Models.Settings}/>
         );
     }
-
 }
 
 

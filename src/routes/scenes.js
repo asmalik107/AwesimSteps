@@ -5,9 +5,9 @@ import {Scene, Actions} from 'react-native-router-flux';
 import TabIcon from '../components/tabIcon';
 
 
-import main from '../containers/mainPage';
-import settings from '../containers/settingsPage';
-import step from '../containers/stepPage';
+import main from '../containers/mainContainer';
+import settings from '../containers/settingsContainer';
+import step from '../containers/stepContainer';
 import policy from '../components/policy';
 import goal from '../components/goal';
 
