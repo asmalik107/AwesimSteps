@@ -18,13 +18,12 @@ import TimeUtil from '../utils/timeUtil';
 import GFit from '../services/googleFit';
 
 
-class StepPage extends Component {
+class StepContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            today: 0,
-            fill: 'stuff',
+            current: 0,
             goal: 10000,
             week: {
                 today: 3,
@@ -55,14 +54,11 @@ class StepPage extends Component {
         GFit.authorize();
 
         GFit.observeSteps((result) => {
-            //console.log(result);
-            this.setState({today: result.steps});
+            this.setState({current: result.steps});
 
         });
 
         GFit.observeHistory((result) => {
-            //console.log(result);
-            //this.setState({today: result});
             console.log(result);
         });
 
@@ -99,7 +95,7 @@ class StepPage extends Component {
                                 <View style={styles.fill}>
                                     <Icon name='android-walk' size={40} color='#e74c3c'/>
                                     <Text style={styles.points}>
-                                        { this.state.today } Steps
+                                        { this.state.current } Steps
                                     </Text>
                                 </View>
                             )
@@ -155,4 +151,4 @@ const styles = StyleSheet.create({
     dayPoints: {}
 });
 
-export default StepPage;
+export default StepContainer;

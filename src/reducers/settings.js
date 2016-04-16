@@ -1,4 +1,8 @@
-const Settings = {
+'use strict';
+
+import * as types from '../actions/actionTypes';
+
+const initialState = {
     goals: [
         {
             key: '1',
@@ -31,4 +35,9 @@ const Settings = {
     ]
 };
 
-exports.Settings = Settings;
+export default function settings(state=initialState, action) {
+    switch(action.type) {
+        default:
+            return state;
+    }
+}

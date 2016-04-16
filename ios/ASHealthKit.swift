@@ -33,11 +33,16 @@ class RNHealthKit: NSObject {
    */
   
   @objc func authorize(callback:RCTResponseSenderBlock) {
-    let authorized = checkAuthorization();
+    /*let authorized = checkAuthorization();
     
     NSLog(authorized ? "Yes" : "No");
     
     callback([NSNull(), authorized]);
+ */
+    checkAuthorization(){ authorized, error in
+      NSLog(authorized ? "Yes" : "No");
+      callback([NSNull(), authorized]);
+    }
   }
   
   
@@ -55,8 +60,7 @@ class RNHealthKit: NSObject {
     }
   }
   
-  func checkAuthorization() -> Bool {
-    var isEnabled = true
+  func checkAuthorization(completion: (Bool, NSError?) -> ()) {
     
     if HKHealthStore.isHealthDataAvailable()
     {
@@ -67,13 +71,16 @@ class RNHealthKit: NSObject {
       )
 
       healthKitStore.requestAuthorizationToShareTypes(nil, readTypes: steps) { (success, error) -> Void in
-        isEnabled = success
+        var isEnabled = false
+        
+        if success  {
+          isEnabled = success
+        }
+        completion(isEnabled, error);
       }
-    } else {
-      isEnabled = false;
     }
     
-    return isEnabled
+    //return isEnabled
   }
   
   func recentSteps(startDate:NSDate, endDate:NSDate, completion: (Double, NSError?) -> () )

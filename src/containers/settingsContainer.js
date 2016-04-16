@@ -8,7 +8,7 @@ import React, {
 } from 'react-native';
 
 import Settings from '../components/settingsList';
-import Models from '../utils/settings';
+import {connect} from 'react-redux';
 
 class SettingsPage extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class SettingsPage extends Component {
 
     render() {
         return (
-            <Settings settings={Models.Settings}/>
+            <Settings settings={this.props.settings}/>
         );
     }
 }
@@ -31,5 +31,10 @@ var styles = StyleSheet.create({
     }
 });
 
+function mapStateToProps(state)  {
+    return {
+        ...state
+    };
+}
 
-export default SettingsPage;
+export default connect(mapStateToProps)(SettingsPage);

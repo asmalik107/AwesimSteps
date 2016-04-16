@@ -3,52 +3,11 @@
 import * as types from '../actions/actionTypes';
 
 import {combineReducers} from 'redux';
-
-function auth(state = {}, action){
-    switch(action.type){
-        case types.RECEIVE_ACCESS_TOKEN:
-            return Object.assign({}, state, action.accessToken);
-        default:
-            return state;
-    }
-}
-
-
-function goal(state={}, action) {
-    switch(action.type) {
-        case types.RECEIVE_ACCESS_TOKEN:
-            return Object.assign({}, state, action.accessToken);
-        default:
-            return state;
-    }
-}
-
-function weeklySteps(state={}, action) {
-    switch(action.type) {
-        case types.RECEIVE_ACCESS_TOKEN:
-            return Object.assign({}, state, action.accessToken);
-        default:
-            return state;
-    }
-}
-
-function selectedSteps(state={}, action) {
-    switch(action.type) {
-        case types.RECEIVE_ACCESS_TOKEN:
-            return Object.assign({}, state, action.accessToken);
-        default:
-            return state;
-    }
-}
-
-function todaySteps(state={}, action) {
-    switch(action.type) {
-        case types.RECEIVE_ACCESS_TOKEN:
-            return Object.assign({}, state, action.accessToken);
-        default:
-            return state;
-    }
-}
+import auth from './auth';
+import goal from './goal';
+import weeklySteps from './weeklySteps';
+import selectedSteps from './selectedSteps';
+import settings from './settings';
 
 
 const rootReducer = combineReducers({
@@ -56,7 +15,7 @@ const rootReducer = combineReducers({
     goal,
     weeklySteps,
     selectedSteps,
-    todaySteps
+    settings
 });
 
 export default rootReducer;

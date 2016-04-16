@@ -7,16 +7,18 @@ import React, {
     View
 } from 'react-native';
 
-import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {authorize} from '../actions';
 
-
-class main extends Component {
+class Main extends Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-       Actions.tabbar();
+        this.props.onAuthorize();
+      // Actions.tabbar();
     }
 
     render() {
@@ -39,4 +41,19 @@ var styles = StyleSheet.create({
     }
 });
 
-export default main;
+function mapStateToProps(state)  {
+    return {
+        ...state
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        onAuthorize: authorize
+    }, dispatch);
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Main);

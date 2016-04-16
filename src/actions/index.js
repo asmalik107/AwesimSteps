@@ -1,11 +1,14 @@
 'use strict';
 
 
-import * as types from './actionTypes';
+import * as authorize from './auth';
+import * as steps from './selectedSteps';
+import * as weekly from './weeklySteps';
 
-function receiveToken(accessToken) {
-    return {
-        type: types.RECEIVE_ACCESS_TOKEN,
-        accessToken
-    }
-}
+
+module.exports = {
+    ...authorize,
+    ...steps,
+    ...weekly
+};
+

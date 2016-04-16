@@ -12,43 +12,32 @@ import React, {
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
-import HealthKit from '../services/healthKit'
 import WeeklySummary from '../components/weeklySummary';
-import TimeUtil from '../utils/timeUtil';
-
-function cb(err, result) {
-
-    if (err) {
-       // console.error(err)
-    } else {
-        //console.log(result);
-    }
-}
-
-HealthKit.authorize(cb);
+import {observeSteps, unobserveSteps} from '../actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 
-class StepPage extends Component {
+class StepContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            today: 0,
-            fill: 'stuff',
+/*        this.state = {
+            current: 0,
             goal: 10000,
             week: {
                 today: 3,
                 days: [
-                    {day: 'S', date: null, steps: 0, fill:100},
-                    {day: 'M', date: null, steps: 0, fill:10},
-                    {day: 'T', date: null, steps: 0, fill:20},
-                    {day: 'W', date: null, steps: 0, fill:30},
+                    {day: 'S', date: null, steps: 0, fill:0},
+                    {day: 'M', date: null, steps: 0, fill:0},
+                    {day: 'T', date: null, steps: 0, fill:0},
+                    {day: 'W', date: null, steps: 0, fill:0},
                     {day: 'T', date: null, steps: 0, fill:0},
                     {day: 'F', date: null, steps: 0, fill:0},
                     {day: 'S', date: null, steps: 0, fill:0}
                 ]
             }
-        };
+        };*/
 
         this._onPressButton = this._onPressButton.bind(this);
     }
@@ -56,73 +45,33 @@ class StepPage extends Component {
 
     _onPressButton() {
 
-
-/*        HealthKit.getSteps(todayStart, (err, result) => {
-            if (err) {
-                //console.error(err)
-            } else {
-                //console.log(result);
-                this.setState({today: result});
-            }
-        });*/
-        var weekStart = TimeUtil.getStartOfWeek();
-        var todayStart = TimeUtil.getStartOfToday();
-        var diff = TimeUtil.getDiffInDays(weekStart);
-
-        RNHealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
-
-            if (err) {
-               // console.error(err)
-            } else {
-                //console.log(result);
-                //this.setState({today: result});
-            }
-        });
     }
 
     componentDidMount() {
-/*
-        HealthKit.getSteps(todayStart, (err, result) => {
-
-            if (err) {
-                //console.error(err)
-            } else {
-                //console.log(result);
-                this.setState({today: result});
-            }
-        });*/
-
-        HealthKit.observeSteps((result) => {
-                //console.log(result);
-                this.setState({today: result});
-
-        });
-
-
+        this.props.onObserveSteps();
     }
 
     componentWillUnmount() {
-        HealthKit.usubscribeListeners();
+        this.props.onUnobserveSteps();
     }
 
 
     getFill() {
-
         //console.log(this.state.today / this.state.goal * 100)
-        return this.state.today / this.state.goal * 100;
+        return this.state.current / this.state.goal * 100;
 
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <WeeklySummary week={this.state.week} weeklyStyle={styles.weekly}/>
+                <WeeklySummary week={this.props.weekly} weeklyStyle={styles.weekly}/>
                 <View style={styles.today}>
                     <Text> Today </Text>
                     <AnimatedCircularProgress
                         size={270}
                         width={20}
-                        fill={this.getFill()}
+                        fill={this.props.selected.fill}
                         tintColor="#fe751f"
                         backgroundColor="#d2d2d2"
                         rotation={360}
@@ -132,16 +81,13 @@ class StepPage extends Component {
                                 <View style={styles.fill}>
                                     <Icon name='android-walk' size={40} color='#e74c3c'/>
                                     <Text style={styles.points}>
-                                        { this.state.today } Steps
+                                        { this.props.selected.steps } Steps
                                     </Text>
                                 </View>
                             )
                         }
                     </AnimatedCircularProgress>
-
                 </View>
-
-
             </View>
         );
     }
@@ -194,4 +140,23 @@ const styles = StyleSheet.create({
     dayPoints: {}
 });
 
-export default StepPage;
+function mapStateToProps(state)  {
+    return {
+        goal: state.goal.goal,
+        selected : state.selectedSteps,
+        weekly: state.weeklySteps
+        //...state
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        onObserveSteps: observeSteps,
+        onUnobserveSteps: unobserveSteps
+    }, dispatch);
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(StepContainer);

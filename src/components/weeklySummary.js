@@ -25,7 +25,6 @@ class WeeklySummary extends Component{
 
         return (
             <View style={this.props.weeklyStyle}>
-
                 {dailySummary}
             </View>
         )
