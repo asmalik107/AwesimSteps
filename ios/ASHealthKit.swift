@@ -16,31 +16,9 @@ class RNHealthKit: NSObject {
   var bridge: RCTBridge!
   let healthKitStore:HKHealthStore = HKHealthStore()
   
-  
-  /*  let a = 3;
-   @objc func addEvent(name: String, location: String, date: NSNumber) -> Void {
-   // Date is ready to use!
-   }
-   
-   @objc func add(x:NSNumber, y:NSNumber, callback:RCTResponseSenderBlock)->Void{
-   x.intValue+y.intValue;
-   
-   NSLog("stuff");
-  
-   
-   callback([a]);
-   }
-   */
-  
   @objc func authorize(callback:RCTResponseSenderBlock) {
-    /*let authorized = checkAuthorization();
-    
-    NSLog(authorized ? "Yes" : "No");
-    
-    callback([NSNull(), authorized]);
- */
     checkAuthorization(){ authorized, error in
-      NSLog(authorized ? "Yes" : "No");
+      NSLog(authorized ? "Authorized: Yes" : "Authorized: No");
       callback([NSNull(), authorized]);
     }
   }
@@ -48,14 +26,14 @@ class RNHealthKit: NSObject {
   
   @objc func getSteps(startDate:NSDate, endDate:NSDate, callback:RCTResponseSenderBlock) {
     recentSteps(startDate, endDate: endDate) { steps, error in
-      NSLog("get steps");
+      NSLog("retrieved steps");
       callback([NSNull(), steps]);
     }
   }
   
   @objc func getWeeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, callback:RCTResponseSenderBlock){
     weeklySteps(startDate, endDate: endDate, anchorDate: anchorDate) { steps, error in
-      NSLog("get weeklysteps");
+      NSLog("retrieved weeklysteps");
       callback([NSNull(), steps]);
     }
   }
@@ -160,7 +138,7 @@ class RNHealthKit: NSObject {
         let endDate = NSDate()
         
         self.recentSteps(startDate, endDate: endDate) { steps, error in
-          NSLog("get Observed steps");
+          NSLog("Observed steps changed");
          // callback([NSNull(), steps]);
           //NSLog("Bridge: %@", self.bridge);
           

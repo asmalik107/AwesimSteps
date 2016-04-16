@@ -13,8 +13,35 @@ function receiveWeeklySteps(steps) {
 }
 
 
+function receiveTodaysSteps(today, steps) {
+    return {
+        type: types.RECEIVE_TODAY_STEPS,
+        today,
+        steps
+    }
+}
+
+
+export function observeSteps() {
+    return (dispatch, state) => {
+        HealthKit.observeSteps((steps) => {
+            dispatch(receiveTodaysSteps(TimeUtil.getToday(), steps));
+        });
+    }
+}
+
+
+export function unobserveSteps() {
+    return (dispatch) => {
+        HealthKit.usubscribeListeners();
+    }
+}
+
+
+
 export function retrieveWeeklySteps() {
     return (dispatch) => {
+
         var weekStart = TimeUtil.getStartOfWeek();
         var todayStart = TimeUtil.getStartOfToday();
         //var diff = TimeUtil.getDiffInDays(weekStart);
@@ -26,6 +53,7 @@ export function retrieveWeeklySteps() {
             } else {
                 //console.log(result);
                 //this.setState({today: result});
+
                 dispatch(receiveWeeklySteps(result));
             }
         });

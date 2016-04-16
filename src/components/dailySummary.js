@@ -21,7 +21,7 @@ class DailySummary extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={this._onPressButton}>
+                <TouchableOpacity disabled={this.props.fill===0} onPress={this._onPressButton}>
                     <View>
                         <AnimatedCircularProgress
                             size={40}
@@ -37,7 +37,7 @@ class DailySummary extends Component {
                                     <Text style={styles.fill}>
                                         {this.props.day}
                                     </Text>
-      
+
                                 )
                             }
                         </AnimatedCircularProgress>
@@ -48,7 +48,7 @@ class DailySummary extends Component {
     }
 
     _onPressButton() {
-       // console.log('Click');
+        // console.log('Click');
     }
 }
 
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //top:30,
-       // flexDirection: 'column',
-       alignItems: 'center'
+        // flexDirection: 'column',
+        alignItems: 'center'
         //alignSelf: 'center',
         //justifyContent: 'space-around'
         //margin: 5

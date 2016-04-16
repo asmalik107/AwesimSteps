@@ -13,7 +13,7 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
 import WeeklySummary from '../components/weeklySummary';
-import {observeSteps, unobserveSteps} from '../actions';
+import {observeSteps, unobserveSteps, retrieveWeeklySteps} from '../actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -21,23 +21,6 @@ import {bindActionCreators} from 'redux';
 class StepContainer extends Component {
     constructor(props) {
         super(props);
-
-/*        this.state = {
-            current: 0,
-            goal: 10000,
-            week: {
-                today: 3,
-                days: [
-                    {day: 'S', date: null, steps: 0, fill:0},
-                    {day: 'M', date: null, steps: 0, fill:0},
-                    {day: 'T', date: null, steps: 0, fill:0},
-                    {day: 'W', date: null, steps: 0, fill:0},
-                    {day: 'T', date: null, steps: 0, fill:0},
-                    {day: 'F', date: null, steps: 0, fill:0},
-                    {day: 'S', date: null, steps: 0, fill:0}
-                ]
-            }
-        };*/
 
         this._onPressButton = this._onPressButton.bind(this);
     }
@@ -48,6 +31,7 @@ class StepContainer extends Component {
     }
 
     componentDidMount() {
+        this.props.onWeeklySteps();
         this.props.onObserveSteps();
     }
 
@@ -71,7 +55,7 @@ class StepContainer extends Component {
                     <AnimatedCircularProgress
                         size={270}
                         width={20}
-                        fill={this.props.selected.fill}
+                        fill={this.props.weekly[this.props.selected].fill}
                         tintColor="#fe751f"
                         backgroundColor="#d2d2d2"
                         rotation={360}
@@ -81,7 +65,7 @@ class StepContainer extends Component {
                                 <View style={styles.fill}>
                                     <Icon name='android-walk' size={40} color='#e74c3c'/>
                                     <Text style={styles.points}>
-                                        { this.props.selected.steps } Steps
+                                        { this.props.weekly[this.props.selected].steps } Steps
                                     </Text>
                                 </View>
                             )
@@ -142,15 +126,16 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state)  {
     return {
-        goal: state.goal.goal,
-        selected : state.selectedSteps,
-        weekly: state.weeklySteps
+        goal:state.weeklySteps.goal,
+        selected: state.weeklySteps.selected,
+        weekly: state.weeklySteps.days
         //...state
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        onWeeklySteps: retrieveWeeklySteps,
         onObserveSteps: observeSteps,
         onUnobserveSteps: unobserveSteps
     }, dispatch);

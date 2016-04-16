@@ -16,7 +16,7 @@ class WeeklySummary extends Component{
 
 
     render() {
-        var dailySummary = this.props.week.days.map(function(day, index) {
+        var dailySummary = this.props.week.map(function(day, index) {
             return (
                 <DailySummary {...day} key={index}/>
             );

@@ -2,6 +2,9 @@ import moment from 'moment';
 
 
 class TimeUtil {
+    constructor() {
+        this.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    }
 
     getStartOfWeek() {
         return moment().startOf('week');
@@ -17,6 +20,13 @@ class TimeUtil {
 
     getDiffInDays(startDate) {
         return moment().diff(startDate, 'days');
+    }
+
+
+    getToday() {
+        var day =  moment().format('ddd');
+        return this.days.indexOf(day);
+
     }
 
 }
