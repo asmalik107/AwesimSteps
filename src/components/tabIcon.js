@@ -25,4 +25,4 @@ var styles = StyleSheet.create({
     }
 });
 
-module.exports = TabIcon;
+export default TabIcon;

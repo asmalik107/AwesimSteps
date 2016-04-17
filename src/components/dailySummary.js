@@ -49,6 +49,7 @@ class DailySummary extends Component {
 
     _onPressButton() {
         // console.log('Click');
+        this.props.onSelectDay(this.props.name);
     }
 }
 
@@ -70,4 +71,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = DailySummary;
+export default DailySummary;

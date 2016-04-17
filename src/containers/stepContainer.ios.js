@@ -13,7 +13,7 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
 import WeeklySummary from '../components/weeklySummary';
-import {observeSteps, unobserveSteps, retrieveWeeklySteps} from '../actions';
+import {observeSteps, unobserveSteps, retrieveWeeklySteps, selectDay} from '../actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -21,14 +21,8 @@ import {bindActionCreators} from 'redux';
 class StepContainer extends Component {
     constructor(props) {
         super(props);
-
-        this._onPressButton = this._onPressButton.bind(this);
     }
 
-
-    _onPressButton() {
-
-    }
 
     componentDidMount() {
         this.props.onWeeklySteps();
@@ -38,18 +32,13 @@ class StepContainer extends Component {
     componentWillUnmount() {
         this.props.onUnobserveSteps();
     }
-
-
-    getFill() {
-        //console.log(this.state.today / this.state.goal * 100)
-        return this.state.current / this.state.goal * 100;
-
-    }
+    
 
     render() {
         return (
             <View style={styles.container}>
-                <WeeklySummary week={this.props.weekly} weeklyStyle={styles.weekly}/>
+                <WeeklySummary week={this.props.weekly} weeklyStyle={styles.weekly}
+                               onSelectDay={this.props.onSelectDay}/>
                 <View style={styles.today}>
                     <Text> Today </Text>
                     <AnimatedCircularProgress
@@ -100,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         //justifyContent: 'center',
         flexDirection: 'row',
-       marginBottom:30,
+        marginBottom: 30,
 
     },
     fill: {
@@ -124,9 +113,9 @@ const styles = StyleSheet.create({
     dayPoints: {}
 });
 
-function mapStateToProps(state)  {
+function mapStateToProps(state) {
     return {
-        goal:state.weeklySteps.goal,
+        goal: state.weeklySteps.goal,
         selected: state.weeklySteps.selected,
         weekly: state.weeklySteps.days
         //...state
@@ -137,7 +126,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         onWeeklySteps: retrieveWeeklySteps,
         onObserveSteps: observeSteps,
-        onUnobserveSteps: unobserveSteps
+        onUnobserveSteps: unobserveSteps,
+        onSelectDay: selectDay
     }, dispatch);
 }
 

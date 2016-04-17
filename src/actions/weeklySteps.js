@@ -21,6 +21,12 @@ function receiveTodaysSteps(today, steps) {
     }
 }
 
+export function selectDay(day) {
+    return {
+        type: types.SELECT_DAY,
+        selected: TimeUtil.getDayNumber(day)
+    }
+}
 
 export function observeSteps() {
     return (dispatch, state) => {
@@ -36,7 +42,6 @@ export function unobserveSteps() {
         HealthKit.usubscribeListeners();
     }
 }
-
 
 
 export function retrieveWeeklySteps() {
@@ -59,3 +64,4 @@ export function retrieveWeeklySteps() {
         });
     }
 }
+

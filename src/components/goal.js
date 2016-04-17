@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = Goal;
+export default Goal;

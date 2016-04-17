@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = SettingsList;
+export default SettingsList;

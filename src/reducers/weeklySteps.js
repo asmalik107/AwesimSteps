@@ -11,13 +11,13 @@ const initialWeeklySteps = {
     selected: today,
     goal: 10000,
     days: [
-        {day: 'S', date: null, steps: 0, fill: 0},
-        {day: 'M', date: null, steps: 0, fill: 0},
-        {day: 'T', date: null, steps: 0, fill: 0},
-        {day: 'W', date: null, steps: 0, fill: 0},
-        {day: 'T', date: null, steps: 0, fill: 0},
-        {day: 'F', date: null, steps: 0, fill: 0},
-        {day: 'S', date: null, steps: 0, fill: 0}
+        {day: 'S', name: 'Sun', date: null, steps: 0, fill: 0},
+        {day: 'M', name: 'Mon', date: null, steps: 0, fill: 0},
+        {day: 'T', name: 'Tue', date: null, steps: 0, fill: 0},
+        {day: 'W', name: 'Wed', date: null, steps: 0, fill: 0},
+        {day: 'T', name: 'Thu', date: null, steps: 0, fill: 0},
+        {day: 'F', name: 'Fri', date: null, steps: 0, fill: 0},
+        {day: 'S', name: 'Sat', date: null, steps: 0, fill: 0}
     ]
 };
 
@@ -26,14 +26,14 @@ function getWeeklySteps(state, action) {
     const weekly = action.weekly;
     return state.days.map((day, index) => {
         const steps = weekly[index] || 0;
-        return {...day, steps: steps, fill: steps / state.goal * 100}
+        return {...day, steps: steps, fill: Math.ceil(steps / state.goal * 100)}
     });
 }
 
 function getDailySteps(state, action) {
     return state.days.map((day, index) => {
         if (index === action.today) {
-            return {...day, steps: action.steps, fill: action.steps / state.goal * 100}
+            return {...day, steps: action.steps, fill: Math.ceil(action.steps / state.goal * 100)}
         } else {
             return {...day};
         }
@@ -51,6 +51,11 @@ export default function weeklySteps(state = initialWeeklySteps, action) {
                 ...state,
                 today: action.today,
                 days: getDailySteps(state, action)
+            };
+        case types.SELECT_DAY:
+            return {
+                ...state,
+                selected: action.selected
             };
         default:
             return state;

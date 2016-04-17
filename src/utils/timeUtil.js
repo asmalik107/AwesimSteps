@@ -25,6 +25,11 @@ class TimeUtil {
 
     getToday() {
         var day =  moment().format('ddd');
+        return this.getDayNumber(day);
+
+    }
+
+    getDayNumber(day) {
         return this.days.indexOf(day);
 
     }
