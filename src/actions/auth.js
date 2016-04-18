@@ -1,7 +1,8 @@
 'use strict';
 
+import {Platform} from 'react-native';
 import * as types from './actionTypes';
-import HealthKit from '../services/healthKit';
+import FitService from '../services/fitService';
 import {Actions} from 'react-native-router-flux';
 
 function authSuccess(authorized) {
@@ -19,15 +20,28 @@ function authFailed(authorized) {
 }
 
 export function authorize() {
-    return  (dispatch) => {
-        HealthKit.authorize((err, result) => {
-            if (err || !result) {
-                dispatch(authFailed(false));
-                //handle and display error here
-            } else {
+    if (Platform.OS === 'ios') {
+        return (dispatch) => {
+            FitService.authorize((err, result) => {
+                if (err || !result) {
+                    dispatch(authFailed(false));
+                    //handle and display error here
+                } else {
+                    dispatch(authSuccess(result));
+                    Actions.tabbar();
+                }
+            })
+        }
+    } else if (Platform.OS === 'android') {
+        return (dispatch) => {
+            FitService.onAuthorize((result) => {
                 dispatch(authSuccess(result));
+                console.log(result);
                 Actions.tabbar();
-            }
-        })
+            });
+
+            FitService.authorize();
+        }
     }
+
 }

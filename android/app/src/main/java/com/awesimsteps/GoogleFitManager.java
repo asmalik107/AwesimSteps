@@ -10,7 +10,10 @@ import android.util.Log;
 
 
 import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -90,7 +93,11 @@ public class GoogleFitManager implements
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Connected");
 
-        stepCounter.findFitnessDataSources();
+        //stepCounter.findFitnessDataSources();
+        WritableMap map = Arguments.createMap();
+        map.putBoolean("authorized", true);
+        sendEvent(this.mReactContext, "AuthorizeEvent", map);
+
     }
 
 
@@ -146,5 +153,13 @@ public class GoogleFitManager implements
                 });
     }
 
+
+    private void sendEvent(ReactContext reactContext,
+                           String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
+    }
 
 }

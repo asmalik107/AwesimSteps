@@ -1,7 +1,8 @@
 'use strict';
 
+import {Platform} from 'react-native';
 import * as types from './actionTypes';
-import HealthKit from '../services/healthKit';
+import FitService from '../services/fitService';
 import TimeUtil from '../utils/timeUtil';
 
 
@@ -29,39 +30,62 @@ export function selectDay(day) {
 }
 
 export function observeSteps() {
-    return (dispatch, state) => {
-        HealthKit.observeSteps((steps) => {
-            dispatch(receiveTodaysSteps(TimeUtil.getToday(), steps));
-        });
+    if (Platform.OS === 'ios') {
+        return (dispatch, state) => {
+            FitService.observeSteps((steps) => {
+                dispatch(receiveTodaysSteps(TimeUtil.getToday(), steps));
+            });
+        }
+    } else if (Platform.OS === 'android') {
+        return (dispatch) =>{
+            FitService.observeSteps((result) => {
+                dispatch(receiveTodaysSteps(TimeUtil.getToday(), result.steps));
+            });
+        }
     }
 }
 
 
 export function unobserveSteps() {
     return (dispatch) => {
-        HealthKit.usubscribeListeners();
+        FitService.usubscribeListeners();
     }
 }
 
 
 export function retrieveWeeklySteps() {
-    return (dispatch) => {
+    if (Platform.OS === 'ios') {
+        return (dispatch) => {
 
-        var weekStart = TimeUtil.getStartOfWeek();
-        var todayStart = TimeUtil.getStartOfToday();
-        //var diff = TimeUtil.getDiffInDays(weekStart);
+            var weekStart = TimeUtil.getStartOfWeek();
+            var todayStart = TimeUtil.getStartOfToday();
+            //var diff = TimeUtil.getDiffInDays(weekStart);
 
-        HealthKit.getWeeklySteps(weekStart, todayStart, (err, result) => {
+            FitService.getWeeklySteps(weekStart, todayStart, (err, results) => {
 
-            if (err) {
-                // console.error(err)
-            } else {
-                //console.log(result);
-                //this.setState({today: result});
+                if (err) {
+                    // console.error(err)
+                } else {
+                    //console.log(result);
+                    //this.setState({today: result});
 
-                dispatch(receiveWeeklySteps(result));
-            }
-        });
+                    dispatch(receiveWeeklySteps(results));
+                }
+            });
+        }
+    } else if (Platform.OS === 'android') {
+        return (dispatch) => {
+            FitService.observeHistory((results) => {
+                console.log(results);
+
+                var steps = results.map((result)=> {return result.steps});
+                dispatch(receiveWeeklySteps(steps));
+            });
+
+            var weekStart = TimeUtil.getStartOfWeek();
+
+            FitService.getWeeklySteps(weekStart);
+        }
     }
 }
 

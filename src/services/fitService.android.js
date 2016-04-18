@@ -5,7 +5,6 @@ import { DeviceEventEmitter } from 'react-native';
 
 import moment from 'moment';
 
-console.log('googleFit', NativeModules, googleFit);
 
 
 class GoogleFit{
@@ -17,7 +16,7 @@ class GoogleFit{
         googleFit.authorize();
     }
 
-    getWeeklySteps(startDate, anchorDate, callback){
+    getWeeklySteps(startDate){
         //googleFit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime(), anchorDate.toDate().getTime(), callback);
         googleFit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime());
     }
@@ -28,6 +27,8 @@ class GoogleFit{
             (steps) => callback(steps)
             //(steps) => console.log('StepChangedEvent', steps)
         ));
+
+        googleFit.observeSteps();
     }
 
     observeHistory(callback) {
@@ -37,6 +38,15 @@ class GoogleFit{
             //(steps) => console.log('StepChangedEvent', steps)
         ));
     }
+
+    onAuthorize(callback) {
+        this.subscriptions.push(DeviceEventEmitter.addListener(
+            'AuthorizeEvent',
+            (authorized) => callback(authorized)
+            //(steps) => console.log('StepChangedEvent', steps)
+        ));
+    }
+
 
     usubscribeListeners() {
         if(!this.subscriptions.isEmpty()){

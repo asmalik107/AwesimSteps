@@ -38,10 +38,17 @@ public class GoogleFitModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void observeSteps() {
+        googleFitManager.getStepCounter().findFitnessDataSources();
+    }
+
+    @ReactMethod
     public void getWeeklySteps(double startDate, double endDate) {
         googleFitManager.getStepHistory().displayLastWeeksData((long)startDate, (long)endDate);
-
     }
+
+
+
 
 
 }

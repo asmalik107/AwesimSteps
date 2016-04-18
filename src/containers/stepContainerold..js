@@ -12,7 +12,7 @@ import React, {
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
-//import HealthKit from '../services/healthKit'
+//import FitService from '../services/healthKit'
 import WeeklySummary from '../components/weeklySummary';
 import TimeUtil from '../utils/timeUtil';
 import GFit from '../services/googleFit';
