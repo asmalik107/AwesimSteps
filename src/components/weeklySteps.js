@@ -7,7 +7,7 @@ import React, {
 } from 'react-native';
 
 
-import DailySummary from './dailySummary';
+import DailySteps from './dailySteps';
 
 class WeeklySummary extends Component {
     constructor(props) {
@@ -18,7 +18,11 @@ class WeeklySummary extends Component {
     render() {
         var dailySummary = this.props.week.map((day, index) => {
             return (
-                <DailySummary {...day} key={day.name} onSelectDay={this.props.onSelectDay}/>
+                <DailySteps
+                    {...day}
+                    key={day.name}
+                    isSummary={false}
+                    onSelectDay={this.props.onSelectDay}/>
             );
         });
 
