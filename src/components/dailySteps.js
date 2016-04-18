@@ -11,6 +11,19 @@ import React, {
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
+const tintColor = "#fe751f";
+const backgroundColor = "#d2d2d2";
+const rotation = 360;
+const summaryDim = {
+    size:40,
+    width:5
+};
+const dayDim = {
+    size:270,
+    width: 20,
+    iconSize:40
+};
+
 class DailySteps extends Component {
     constructor(props) {
         super(props);
@@ -23,12 +36,12 @@ class DailySteps extends Component {
             <TouchableOpacity disabled={this.props.fill===0} onPress={this._onPressButton}>
                 <View>
                     <AnimatedCircularProgress
-                        size={40}
-                        width={5}
+                        size={summaryDim.size}
+                        width={summaryDim.width}
                         fill={this.props.fill}
-                        tintColor="#fe751f"
-                        backgroundColor="#d2d2d2"
-                        rotation={360}
+                        tintColor={tintColor}
+                        backgroundColor={backgroundColor}
+                        rotation={rotation}
                     >
                         {
                             (fill) => (
@@ -49,17 +62,17 @@ class DailySteps extends Component {
     renderDay() {
         return (
             <AnimatedCircularProgress
-                size={270}
-                width={20}
+                size={dayDim.size}
+                width={dayDim.width}
                 fill={this.props.fill}
-                tintColor="#fe751f"
-                backgroundColor="#d2d2d2"
-                rotation={360}
+                tintColor={tintColor}
+                backgroundColor={backgroundColor}
+                rotation={rotation}
             >
                 {
                     (fill) => (
                         <View style={styles.dayFill}>
-                            <Icon name='android-walk' size={40} color='#e74c3c'/>
+                            <Icon name='android-walk' size={dayDim.iconSize} color='#e74c3c'/>
                             <Text style={styles.steps}>
                                 { this.props.steps } Steps
                             </Text>
