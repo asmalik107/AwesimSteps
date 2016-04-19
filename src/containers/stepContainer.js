@@ -12,6 +12,8 @@ import DailySteps from '../components/dailySteps';
 import {observeSteps, unobserveSteps, retrieveWeeklySteps, selectDay} from '../actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Colors from '../utils/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 class StepContainer extends Component {
@@ -31,15 +33,19 @@ class StepContainer extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <WeeklySteps
-                    week={this.props.weekly}
-                    onSelectDay={this.props.onSelectDay}
-                    weeklyStyle={styles.weekly}
-                />
-                <View style={styles.today}>
-                    <Text> Today </Text>
-                    <DailySteps {...this.props.weekly[this.props.selected]} isSummary={true}/>
-                </View>
+                <LinearGradient colors={['#237A82', '#366185', '#5D467A']}
+                                start={[0.0, 0.5]} end={[1.0, 0.5]} locations={[0.0, 1.0]}
+                                style={styles.gradient}>
+                    <WeeklySteps
+                        week={this.props.weekly}
+                        onSelectDay={this.props.onSelectDay}
+                        weeklyStyle={styles.weekly}
+                    />
+                    <View style={styles.day}>
+                        <Text> Today </Text>
+                        <DailySteps {...this.props.weekly[this.props.selected]} isSummary={true}/>
+                    </View>
+                </LinearGradient>
             </View>
         );
     }
@@ -50,9 +56,9 @@ class StepContainer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: 'transparent'
     },
-    today: {
+    day: {
         flex: .80,
         alignItems: 'center'
     },
@@ -62,7 +68,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 30
 
-    }
+    },
+    gradient: {
+        flex: 1
+        //width: width
+    },
 });
 
 function mapStateToProps(state) {

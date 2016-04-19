@@ -2,6 +2,7 @@
 
 import React, {
     Component,
+    Dimensions,
     StyleSheet,
     Text,
     View
@@ -10,6 +11,9 @@ import React, {
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {authorize} from '../actions';
+import LinearGradient from 'react-native-linear-gradient';
+
+const {height, width} = Dimensions.get('window');
 
 class Main extends Component {
     constructor(props) {
@@ -18,16 +22,20 @@ class Main extends Component {
 
     componentDidMount() {
         this.props.onAuthorize();
-      // Actions.tabbar();
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>
-                    App Startup
-                </Text>
-            </View>
+            <LinearGradient colors={['#237A82', '#366185', '#5D467A']}
+                            start={[0.0, 0.5]} end={[1.0, 0.5]} locations={[0.0, 1.0]}
+                            style={styles.gradient}>
+                <View style={styles.container}>
+
+                    <Text style={styles.text}>
+                        App Startup
+                    </Text>
+                </View>
+            </LinearGradient>
         );
     }
 }
@@ -37,11 +45,20 @@ var styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#e74c3c'
+        // backgroundColor: '#e74c3c'
+    },
+    gradient: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: width
+    },
+    text: {
+        backgroundColor: 'transparent'
     }
 });
 
-function mapStateToProps(state)  {
+function mapStateToProps(state) {
     return {
         ...state
     };

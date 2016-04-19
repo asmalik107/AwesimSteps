@@ -3,6 +3,7 @@ import React, {StyleSheet} from 'react-native';
 import {Scene, Actions} from 'react-native-router-flux';
 
 import TabIcon from '../components/tabIcon';
+import Colors from '../utils/colors';
 
 
 import main from '../containers/mainContainer';
@@ -13,7 +14,7 @@ import goal from '../components/goal';
 
 const styles = StyleSheet.create({
     navbar: {
-        backgroundColor: '#e74c3c',
+        backgroundColor: Colors.navbar,
         borderBottomColor: 'transparent',
         shadowColor: "#000000",
         shadowOpacity: 0.8,
@@ -25,11 +26,11 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     navbarTitle: {
-        color: '#ffffff'
+        color: Colors.navbar_title
     },
     tabbar: {
-        backgroundColor: '#e74c3c',
-        borderTopColor: 'transparent',
+        backgroundColor: Colors.tabbar,
+        borderTopColor: '#e5e5e5',
         height: 60,
         shadowColor: "#000000",
         shadowOpacity: 0.8,

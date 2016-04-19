@@ -112,7 +112,7 @@ public class GoogleFitManager implements
         if (!authInProgress) {
             try {
                 authInProgress = true;
-                connectionResult.startResolutionForResult(activity, REQUEST_OAUTH);
+                connectionResult.startResolutionForResult(this.activity, REQUEST_OAUTH);
             } catch (IntentSender.SendIntentException e) {
 
             }

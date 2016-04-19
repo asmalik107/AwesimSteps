@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: '500',
         fontSize: 11,
-        marginTop: 15
+        marginTop: 15,
+        marginLeft: 10
     },
     row: {
         backgroundColor: 'white',

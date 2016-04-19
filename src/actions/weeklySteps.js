@@ -76,7 +76,6 @@ export function retrieveWeeklySteps() {
     } else if (Platform.OS === 'android') {
         return (dispatch) => {
             FitService.observeHistory((results) => {
-
                 var steps = results.map((result)=> {return result.steps});
                 dispatch(receiveWeeklySteps(steps));
             });

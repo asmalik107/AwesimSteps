@@ -11,8 +11,8 @@ import React, {
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
 
-const tintColor = "#fe751f";
-const backgroundColor = "#d2d2d2";
+const tintColor = "#8BBF71";
+const backgroundColor = "#717BA5";
 const rotation = 360;
 const summaryDim = {
     size:40,
@@ -21,7 +21,7 @@ const summaryDim = {
 const dayDim = {
     size:270,
     width: 20,
-    iconSize:40
+    iconSize:50
 };
 
 class DailySteps extends Component {
@@ -45,11 +45,9 @@ class DailySteps extends Component {
                     >
                         {
                             (fill) => (
-
                                 <Text style={styles.fill}>
                                     {this.props.day}
                                 </Text>
-
                             )
                         }
                     </AnimatedCircularProgress>
@@ -72,7 +70,7 @@ class DailySteps extends Component {
                 {
                     (fill) => (
                         <View style={styles.dayFill}>
-                            <Icon name='android-walk' size={dayDim.iconSize} color='#e74c3c'/>
+                            <Icon name='android-walk' size={dayDim.iconSize} color='#29b8e5'/>
                             <Text style={styles.steps}>
                                 { this.props.steps } Steps
                             </Text>
@@ -108,12 +106,14 @@ class DailySteps extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'transparent',
     },
     fill: {
         position: 'absolute',
         top: 12,
-        left: 15
+        left: 15,
+        color:'#29b8e5'
     },
     dayFill: {
         backgroundColor: 'transparent',
@@ -121,13 +121,13 @@ const styles = StyleSheet.create({
         top: 90,
         left: 80,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     steps: {
         backgroundColor: 'transparent',
         fontSize: 30,
         textAlign: 'center',
-        color: '#e74c3c',
+        color: '#29b8e5',
         fontWeight: '100'
     }
 });

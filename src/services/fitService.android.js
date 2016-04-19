@@ -15,7 +15,6 @@ class GoogleFit {
     }
 
     getWeeklySteps(startDate) {
-        //googleFit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime(), anchorDate.toDate().getTime(), callback);
         googleFit.getWeeklySteps(startDate.toDate().getTime(), moment().toDate().getTime());
     }
 
@@ -33,7 +32,6 @@ class GoogleFit {
         DeviceEventEmitter.addListener(
             'StepHistoryChangedEvent',
             (steps) => callback(steps)
-            //(steps) => console.log('StepChangedEvent', steps)
         );
     }
 
@@ -41,7 +39,6 @@ class GoogleFit {
         DeviceEventEmitter.addListener(
             'AuthorizeEvent',
             (authorized) => callback(authorized)
-            //(steps) => console.log('StepChangedEvent', steps)
         );
     }
 
