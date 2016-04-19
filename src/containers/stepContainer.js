@@ -42,7 +42,9 @@ class StepContainer extends Component {
                         weeklyStyle={styles.weekly}
                     />
                     <View style={styles.day}>
-                        <Text> Today </Text>
+                        <View style={styles.label}>
+                            <Text style={styles.labelText}> Today </Text>
+                        </View>
                         <DailySteps {...this.props.weekly[this.props.selected]} isSummary={true}/>
                     </View>
                 </LinearGradient>
@@ -71,8 +73,23 @@ const styles = StyleSheet.create({
     },
     gradient: {
         flex: 1
-        //width: width
     },
+    label: {
+        marginBottom: 30,
+        borderRadius: 20,
+        borderWidth: 4,
+        borderColor: '#375A7F',
+        paddingHorizontal: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    labelText: {
+        color: '#ffffff',//Colors.text_color,
+        fontSize: 20,
+        fontWeight: 'bold'
+
+    }
 });
 
 function mapStateToProps(state) {

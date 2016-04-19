@@ -2,6 +2,7 @@
 
 import React, {
     Component,
+    Dimensions,
     View,
     Text,
     StyleSheet,
@@ -10,18 +11,26 @@ import React, {
 
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 var Icon = require('react-native-vector-icons/Ionicons');
+import Colors from '../utils/colors';
 
 const tintColor = "#8BBF71";
 const backgroundColor = "#717BA5";
 const rotation = 360;
+
+/*const {height, width} = Dimensions.get('window');
+
+const size = Math.floor(width/1.5)
+console.log(height, width, size);*/
+
+
 const summaryDim = {
-    size:40,
-    width:5
+    size: 40,
+    width: 5
 };
 const dayDim = {
-    size:270,
-    width: 20,
-    iconSize:50
+    size: 270,
+    width: 10,
+    iconSize: 50
 };
 
 class DailySteps extends Component {
@@ -45,9 +54,11 @@ class DailySteps extends Component {
                     >
                         {
                             (fill) => (
-                                <Text style={styles.fill}>
-                                    {this.props.day}
-                                </Text>
+                                <View style={styles.weekFill}>
+                                    <Text style={styles.day}>
+                                        {this.props.day}
+                                    </Text>
+                                </View>
                             )
                         }
                     </AnimatedCircularProgress>
@@ -73,6 +84,9 @@ class DailySteps extends Component {
                             <Icon name='android-walk' size={dayDim.iconSize} color='#29b8e5'/>
                             <Text style={styles.steps}>
                                 { this.props.steps } Steps
+                            </Text>
+                            <Text style={styles.goal}>
+                                Goal: 10000
                             </Text>
                         </View>
                     )
@@ -107,28 +121,39 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
-    fill: {
+    weekFill: {
         position: 'absolute',
-        top: 12,
-        left: 15,
-        color:'#29b8e5'
+        top: 5,
+        left: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 30,
+        height: 30
     },
     dayFill: {
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: 90,
-        left: 80,
+        top: 10,
+        left: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: 250,
+        height: 250
+    },
+    day: {
+        color: Colors.text_color,
+        fontWeight: '800'
     },
     steps: {
         backgroundColor: 'transparent',
         fontSize: 30,
         textAlign: 'center',
-        color: '#29b8e5',
-        fontWeight: '100'
+        color: Colors.text_color
+    },
+    goal: {
+        color: Colors.text_color
     }
 });
 
