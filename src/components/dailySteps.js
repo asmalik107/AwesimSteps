@@ -42,7 +42,7 @@ class DailySteps extends Component {
 
     renderSummary() {
         return (
-            <TouchableOpacity disabled={this.props.fill===0} onPress={this._onPressButton}>
+            <TouchableOpacity disabled={this.props.fill===0}  onPress={this._onPressButton}>
                 <View>
                     <AnimatedCircularProgress
                         size={summaryDim.size}

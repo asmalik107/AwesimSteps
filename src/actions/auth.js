@@ -36,7 +36,6 @@ export function authorize() {
         return (dispatch) => {
             FitService.onAuthorize((result) => {
                 dispatch(authSuccess(result));
-                console.log(result);
                 Actions.tabbar();
             });
 

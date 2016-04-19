@@ -45,7 +45,7 @@ class TimeUtil {
     }
 
     format(date) {
-        return moment(date).format('ddd, MMMM Do YYYY');
+        return moment.unix(date).format('dddd, D MMMM YYYY');
     }
 
     getDatesOfWeek() {

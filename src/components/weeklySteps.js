@@ -22,7 +22,8 @@ class WeeklySummary extends Component {
                     {...day}
                     key={day.name}
                     isSummary={false}
-                    onSelectDay={this.props.onSelectDay}/>
+                    onSelectDay={this.props.onSelectDay}
+                />
             );
         });
 

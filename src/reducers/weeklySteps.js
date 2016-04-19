@@ -16,7 +16,7 @@ const initialWeeklySteps = {
 
 function getWeeklySteps(state, action) {
     const weekly = action.weekly;
-    
+
     return state.days.map((day, index) => {
         const weekDay = weekly[index];
 
@@ -25,8 +25,9 @@ function getWeeklySteps(state, action) {
         }
 
         const steps = weekDay.steps || 0;
-        const date = TimeUtils.format(day.startDate);
-        return {...day, steps: steps, fill: Math.ceil(steps / state.goal * 100), date: date}
+        const d = TimeUtils.format(weekDay.startDate);
+        
+        return {...day, steps: steps, fill: Math.ceil(steps / state.goal * 100), date: d}
     });
 }
 

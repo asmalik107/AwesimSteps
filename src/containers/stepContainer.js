@@ -45,7 +45,9 @@ class StepContainer extends Component {
                         <View style={styles.label}>
                             <Text style={styles.labelText}> {this.props.weekly[this.props.selected].date || 'Today'}  </Text>
                         </View>
-                        <DailySteps {...this.props.weekly[this.props.selected]} isSummary={true}/>
+                        <DailySteps {...this.props.weekly[this.props.selected]}
+                            isSummary={true}
+                        />
                     </View>
                 </LinearGradient>
             </View>
