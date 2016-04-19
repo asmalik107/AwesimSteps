@@ -1,13 +1,19 @@
 import moment from 'moment';
+import range from 'moment-range';
 
 
 class TimeUtil {
     constructor() {
         this.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        this.getDatesOfWeek();
     }
 
     getStartOfWeek() {
         return moment().startOf('week');
+    }
+
+    getEndOfWeek() {
+        return moment().endOf('week');
     }
 
     getStartOfToday() {
@@ -24,7 +30,7 @@ class TimeUtil {
 
 
     getToday() {
-        var day =  moment().format('ddd');
+        var day = moment().format('ddd');
         return this.getDayNumber(day);
 
     }
@@ -32,6 +38,33 @@ class TimeUtil {
     getDayNumber(day) {
         return this.days.indexOf(day);
 
+    }
+
+    isToday(date) {
+        return moment().diff(date, 'days') < 0;
+    }
+
+    format(date) {
+        return moment(date).format('ddd, MMMM Do YYYY');
+    }
+
+    getDatesOfWeek() {
+        var range = moment.range(this.getStartOfWeek(), this.getEndOfWeek());
+
+        let dates = [];
+
+
+        range.by('days', (moment) => {
+            dates.push({
+                day: moment.format('dd'),
+                name: moment.format('ddd'),
+                date: moment.format('dddd, D MMMM  YYYY'),
+                steps: 0,
+                fill: 0
+            });
+        });
+
+        return dates
     }
 
 }

@@ -84,7 +84,7 @@ class RNHealthKit: NSObject {
   }
   
   
-  func weeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, completion: (Array<Double>, NSError?) -> ()) {
+  func weeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, completion: (Array<NSObject>, NSError?) -> ()) {
     let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
     let interval = NSDateComponents()
     interval.day = 1
@@ -96,7 +96,9 @@ class RNHealthKit: NSObject {
     
     query.initialResultsHandler = { query, results, error in
       if let myResults = results{
-        var stepsArray: [Double] = []
+        var stepsArray: [NSObject] = []
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "EEE"
         myResults.enumerateStatisticsFromDate(startDate, toDate: endDate) {
           statistics, stop in
           
@@ -106,10 +108,20 @@ class RNHealthKit: NSObject {
             let date = statistics.startDate
             let steps = quantity.doubleValueForUnit(HKUnit.countUnit())
             print("\(date): steps = \(steps)")
-            stepsArray.append(steps);
+            
+            let ret =  [
+              "steps": steps,
+              "startDate" : date.timeIntervalSince1970,
+              "endDate": statistics.endDate.timeIntervalSince1970,
+              "day": formatter.stringFromDate(date)
+            ]
+            
+            //stepsArray.append(steps);
+            stepsArray.append(ret)
           }
           
         }
+        
         completion(stepsArray, error)
       }
     }

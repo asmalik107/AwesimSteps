@@ -20,9 +20,9 @@ class Terms extends Component {
 
         //Can't dynamically require static resources!!!
         if(src === 'privacy') {
-            var req = require('./../../resources/privacy-policy.html');
+            var req = require('../resources/privacy-policy.html');
         } else if(src === 'terms') {
-            req = require('./../../resources/terms-conditions.html');
+            req = require('../resources/terms-conditions.html');
         }
 
         return (

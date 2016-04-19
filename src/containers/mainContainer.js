@@ -30,9 +30,8 @@ class Main extends Component {
                             start={[0.0, 0.5]} end={[1.0, 0.5]} locations={[0.0, 1.0]}
                             style={styles.gradient}>
                 <View style={styles.container}>
-
                     <Text style={styles.text}>
-                        App Startup
+                        Respect, Walk
                     </Text>
                 </View>
             </LinearGradient>
@@ -54,7 +53,11 @@ var styles = StyleSheet.create({
         width: width
     },
     text: {
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        color: 'white',
+        fontSize: 40,
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
 });
 

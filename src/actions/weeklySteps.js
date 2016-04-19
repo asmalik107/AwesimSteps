@@ -68,8 +68,9 @@ export function retrieveWeeklySteps() {
                 } else {
                     //console.log(result);
                     //this.setState({today: result});
-
-                    dispatch(receiveWeeklySteps(results));
+                    if(results.length > 0) {
+                        dispatch(receiveWeeklySteps(results));
+                    }
                 }
             });
         }
@@ -77,7 +78,9 @@ export function retrieveWeeklySteps() {
         return (dispatch) => {
             FitService.observeHistory((results) => {
                 var steps = results.map((result)=> {return result.steps});
-                dispatch(receiveWeeklySteps(steps));
+                if(results.length > 0) {
+                    dispatch(receiveWeeklySteps(steps));
+                }
             });
 
             var weekStart = TimeUtil.getStartOfWeek();

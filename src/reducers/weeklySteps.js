@@ -10,23 +10,18 @@ const initialWeeklySteps = {
     today: today,
     selected: today,
     goal: 10000,
-    days: [
-        {day: 'S', name: 'Sun', date: null, steps: 0, fill: 0},
-        {day: 'M', name: 'Mon', date: null, steps: 0, fill: 0},
-        {day: 'T', name: 'Tue', date: null, steps: 0, fill: 0},
-        {day: 'W', name: 'Wed', date: null, steps: 0, fill: 0},
-        {day: 'T', name: 'Thu', date: null, steps: 0, fill: 0},
-        {day: 'F', name: 'Fri', date: null, steps: 0, fill: 0},
-        {day: 'S', name: 'Sat', date: null, steps: 0, fill: 0}
-    ]
+    days: TimeUtils.getDatesOfWeek()
 };
 
 
 function getWeeklySteps(state, action) {
     const weekly = action.weekly;
+
     return state.days.map((day, index) => {
-        const steps = weekly[index] || 0;
-        return {...day, steps: steps, fill: Math.ceil(steps / state.goal * 100)}
+        const weekDay = weekly[index];
+        const steps = weekDay.steps || 0;
+        const date = TimeUtils.format(day.startDate);
+        return {...day, steps: steps, fill: Math.ceil(steps / state.goal * 100), date:date}
     });
 }
 

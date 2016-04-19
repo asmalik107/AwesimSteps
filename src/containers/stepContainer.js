@@ -43,7 +43,7 @@ class StepContainer extends Component {
                     />
                     <View style={styles.day}>
                         <View style={styles.label}>
-                            <Text style={styles.labelText}> Today </Text>
+                            <Text style={styles.labelText}> {this.props.weekly[this.props.selected].date || 'Today'}  </Text>
                         </View>
                         <DailySteps {...this.props.weekly[this.props.selected]} isSummary={true}/>
                     </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     labelText: {
         color: '#ffffff',//Colors.text_color,
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold'
 
     }
