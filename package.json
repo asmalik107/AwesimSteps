@@ -2,9 +2,26 @@
   "name": "AwesimSteps",
   "version": "0.0.1",
   "private": true,
+  "description": "React Native step counter for iOS (HealthKit) and Android (Google Fit)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asmalik107/AwesimSteps"
+  },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "redux"
+  ],
+  "author": {
+    "name": "Asim Malik",
+    "email": "asmalik@outlook.com",
+    "url": "http://asim-malik.com"
+  },
+  "license": "ISC",
   "dependencies": {
     "immutable": "^3.7.6",
     "install": "^0.6.1",
