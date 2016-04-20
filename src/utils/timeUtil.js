@@ -1,5 +1,6 @@
 import moment from 'moment';
 import range from 'moment-range';
+import {Platform} from 'react-native';
 
 
 class TimeUtil {
@@ -45,7 +46,11 @@ class TimeUtil {
     }
 
     format(date) {
-        return moment.unix(date).format('dddd, D MMMM YYYY');
+        if (Platform.OS === 'ios') {
+            return moment.unix(date).format('dddd, D MMMM YYYY');
+        } else   if (Platform.OS === 'android') {
+            return moment(date).format('dddd, D MMMM YYYY');
+        }
     }
 
     getDatesOfWeek() {

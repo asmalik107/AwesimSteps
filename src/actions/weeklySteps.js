@@ -1,5 +1,5 @@
 'use strict';
-
+import _ from 'lodash';
 import {Platform} from 'react-native';
 import * as types from './actionTypes';
 import FitService from '../services/fitService';
@@ -7,9 +7,12 @@ import TimeUtil from '../utils/timeUtil';
 
 
 function receiveWeeklySteps(steps) {
+
+    const stepsMap = _.keyBy(steps, 'day');
+
     return {
         type: types.RECEIVE_WEEKLY_STEPS,
-        weekly: steps
+        weekly: stepsMap
     }
 }
 
@@ -77,9 +80,9 @@ export function retrieveWeeklySteps() {
     } else if (Platform.OS === 'android') {
         return (dispatch) => {
             FitService.observeHistory((results) => {
-                var steps = results.map((result)=> {return result.steps});
+                //var steps = results.map((result)=> {return result.steps});
                 if(results.length > 0) {
-                    dispatch(receiveWeeklySteps(steps));
+                    dispatch(receiveWeeklySteps(results));
                 }
             });
 
