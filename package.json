@@ -1,6 +1,6 @@
 {
   "name": "AwesimSteps",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "React Native step counter for iOS (HealthKit) and Android (Google Fit)",
   "repository": {
