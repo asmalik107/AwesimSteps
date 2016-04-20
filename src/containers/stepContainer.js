@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         height: 40,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     labelText: {
         color: '#ffffff',//Colors.text_color,

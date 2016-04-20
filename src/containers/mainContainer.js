@@ -43,8 +43,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: '#e74c3c'
+        justifyContent: 'center'
     },
     gradient: {
         flex: 1,

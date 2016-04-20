@@ -1,6 +1,7 @@
 'use strict';
 
-import * as types from '../actions/actionTypes';
+import Package from '../../package.json';
+
 
 const initialState = {
     goals: [
@@ -16,7 +17,7 @@ const initialState = {
         {
             key: '1',
             title: 'App Version',
-            info: '1.0.0'
+            info: Package.version
         },
         {
             key: '2',

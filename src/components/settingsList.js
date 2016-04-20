@@ -90,21 +90,17 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     row: {
-        backgroundColor: 'white',
-        //paddingHorizontal: 15,
-        //paddingVertical: 8,
+        backgroundColor: '#ffffff',
         height: 40,
         flex: 1,
         justifyContent: 'center',
         flexDirection: 'row'
-        //height:1
     },
     rowTitle: {
         flex: 1,
         marginLeft: 15,
         alignSelf: 'center',
         fontSize: 16,
-        //fontWeight: '500',
         flexDirection: 'row'
     },
     rowInfo: {
@@ -118,9 +114,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     separator: {
-        //marginLeft: 15,
-        height: 1,
-        //backgroundColor: '#CCCCCC'
+        height: 1
     }
 });
 
