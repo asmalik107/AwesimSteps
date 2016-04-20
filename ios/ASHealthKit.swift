@@ -18,7 +18,7 @@ class RNHealthKit: NSObject {
   
   @objc func authorize(callback:RCTResponseSenderBlock) {
     checkAuthorization(){ authorized, error in
-      NSLog(authorized ? "Authorized: Yes" : "Authorized: No");
+    //  NSLog(authorized ? "Authorized: Yes" : "Authorized: No");
       callback([NSNull(), authorized]);
     }
   }
@@ -26,14 +26,14 @@ class RNHealthKit: NSObject {
   
   @objc func getSteps(startDate:NSDate, endDate:NSDate, callback:RCTResponseSenderBlock) {
     recentSteps(startDate, endDate: endDate) { steps, error in
-      NSLog("retrieved steps");
+      //NSLog("retrieved steps");
       callback([NSNull(), steps]);
     }
   }
   
   @objc func getWeeklySteps(startDate:NSDate, endDate:NSDate, anchorDate:NSDate, callback:RCTResponseSenderBlock){
     weeklySteps(startDate, endDate: endDate, anchorDate: anchorDate) { steps, error in
-      NSLog("retrieved weeklysteps");
+      //NSLog("retrieved weeklysteps");
       callback([NSNull(), steps]);
     }
   }
@@ -140,19 +140,17 @@ class RNHealthKit: NSObject {
       if error != nil {
         
         // Perform Proper Error Handling Here...
-        print("*** An error occured while setting up the stepCount observer. \(error!.localizedDescription) ***")
+        //print("*** An error occured while setting up the stepCount observer. \(error!.localizedDescription) ***")
         abort()
       } else {
-        NSLog("Observed Steps")
+       // NSLog("Observed Steps")
         // If you have subscribed for background updates you must call the completion handler here.
         // completionHandler();
         let startDate = self.beginningOfDay()
         let endDate = NSDate()
         
         self.recentSteps(startDate, endDate: endDate) { steps, error in
-          NSLog("Observed steps changed");
-         // callback([NSNull(), steps]);
-          //NSLog("Bridge: %@", self.bridge);
+          //NSLog("Observed steps changed");
           
           self.bridge.eventDispatcher.sendAppEventWithName("StepChangedEvent", body: steps)
         }
