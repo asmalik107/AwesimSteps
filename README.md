@@ -6,7 +6,7 @@ React Native step counter for iOS and Android.
 * iOS uses the HealthKit API.
 * Android use the Google Fit API.
 
-##  Built with:
+##  Built with :
 
 * [react-native](https://github.com/facebook/react-native)
 * [react-native-circular-progress](https://github.com/bgryszko/react-native-circular-progress)
