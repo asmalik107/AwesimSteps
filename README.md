@@ -14,3 +14,6 @@ React Native step counter for iOS and Android.
 * [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
 * [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 * [react-redux](https://github.com/reactjs/react-redux)
+
+
+<img src="./images/ios-screenshot.png" width="800">
