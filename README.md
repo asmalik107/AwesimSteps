@@ -16,4 +16,4 @@ React Native step counter for iOS and Android.
 * [react-redux](https://github.com/reactjs/react-redux)
 
 
-<img src="./images/ios-screenshot.png" width="800">
+<img src="./images/ios-app-screenshot.png" width="800">
